@@ -1,24 +1,79 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form,Badge } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "../MealPlan/MealCard";
 import { SET_MEAL_LIST } from "../../reducers/appReducer";
 require('dotenv').config();
 const API_KEY = process.env.REACT_APP_API_KEY
 const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
-
-const rowStyle = { minHeight: "60vh" };
+const test =()=>{}
+const rowStyle = { minHeight: "60vh",marginTop:'400px' };
 
 const MealPlanSection = ({ user, dispatch, mealList }) => {
+  const [counter, setCounter] = useState(0)
+  
+  const handleMealCount = () => {
+    setCounter(counter + 1)
+  }
   // console.log('Dispatch',dispatch)
 
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
+  
   const addSelectedMeal = meal => {
     setSelectedMeals([...selectedMeals, meal]);
+    handleMealCount();
+   console.log("Selected Meals", selectedMeals)
   };
 
+
+  //+++++++++++
+  const handleRecipeSend = (e) => {
+    console.log(selectedMeals)
+    e.preventDefault();
+    const postData = {
+      recipe_title: selectedMeals[0].title,
+      recipe_description: selectedMeals[0].instructions,
+      prep_time: selectedMeals[0].readyMinutes,
+      servings: selectedMeals[0].servings,
+      photo_url: selectedMeals[0].image,
+      source_url:selectedMeals[0].sourceUrl
+    }
+    console.log(postData)
+  };
+  // const handleRecipeSend_ = e => {
+  //   e.preventDefault();
+  //   const postData = {
+  //     first_name: form.first_name,
+  //     last_name:form.last_name,
+  //     email: form.email,
+  //     password: form.password
+  //   };
+  //   const axiosConfig = {
+  //     headers: {
+  //       "Content-Type": "application/json;charset=UTF-8",
+  //       "Access-Control-Allow-Origin": "*"
+  //     }
+  //   };
+  //   axios
+  //     .post("/api/users", postData, axiosConfig)
+  //     .then(res => {
+  //       setMsg(res.data.message);
+  //       localStorage.setItem('token', res.data.token);
+  //       resetForm();
+  //       setLogin(true);
+  //     })
+  //     .catch(err => {
+  //       // setMsg(err);
+  //       console.log("AXIOS ERROR:", err);
+  //     });
+  // };
+
+
+
+
+  //+++++++++++++++++++++
   const [query, setQuery] = useState("");
 
   const getInfo = () => {
@@ -61,6 +116,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
   //     console.log("enter press here! ");
   //   }
   // };
+
   const resetForm = () => {
     setQuery("");
   };
@@ -113,6 +169,15 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
         style={{ overflowY: "scroll", maxHeight: "1000px" }}
       >
         <h1 className="text-center">Meals List Display</h1>
+        <Button
+          className='w-25 mx-auto'
+          onClick={handleRecipeSend}
+          variant="primary">
+          Add Meals to list <Badge variant="light"> {counter} </Badge>
+          <span className="sr-only">meals to add</span>
+              </Button>
+         
+
         <div>
           {mealList &&
             mealList.map((r, i) => (

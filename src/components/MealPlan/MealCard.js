@@ -5,9 +5,12 @@ const MealCard = props => {
   const handleClickCard = e => {
     setActive(!active);
     const meal = {
-      image: props.image,
-      title: props.title,
-      instructions: props.instructions
+      photo_url: props.image,
+      recipe_title: props.title,
+      recipe_description: props.instructions,
+      prep_time: props.minutes,
+      servings: props.servings,
+      source_url:props.url
     };
     props.addSelectedMeal(meal);
   };
@@ -43,7 +46,7 @@ const MealCard = props => {
           <p>{props.instructions}</p>
           <div className="d-flex flex-row justify-content-between">
             <span>
-              <i className="far fa-clock"></i> : {props.readyInMinutes} minutes
+              <i className="far fa-clock"></i> : {props.minutes} minutes
             </span>
             <span>
               <i className="fas fa-users"></i> : {props.servings} servings
@@ -59,7 +62,8 @@ const MealCard = props => {
             </Button>
           </div>
           <a
-            href={props.sourceUrl}
+            href={props.url}
+            rel="noopener noreferrer"
             target="_blank"
             style={{ fontWeight: "bold", color: "black" }}
           >

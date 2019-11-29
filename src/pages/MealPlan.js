@@ -11,7 +11,7 @@ const MealPlan = ({ dispatch, user, mealList }) => {
       <NavBar user={user} />
    
       <ProfileInfo user={user} />
-      <MealPlanSection dispatch={dispatch} mealList={mealList}  user={user} />
+      <MealPlanSection  dispatch={dispatch} mealList={mealList}  user={user} />
     
       <Footer />
     </Container>
