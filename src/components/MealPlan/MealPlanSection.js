@@ -30,16 +30,35 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
 
   //+++++++++++
   const handleRecipeSend = (e) => {
-    console.log(selectedMeals)
+    console.log('hhh', selectedMeals)
     e.preventDefault();
     const postData = {
-      recipe_title: selectedMeals[0].title,
-      recipe_description: selectedMeals[0].instructions,
-      prep_time: selectedMeals[0].readyMinutes,
+      userId:1,
+      recipeTitle: selectedMeals[0].recipe_title,
+      recipeDescription: selectedMeals[0].recipe_description,
+      prepTime: selectedMeals[0].prep_time,
       servings: selectedMeals[0].servings,
-      photo_url: selectedMeals[0].image,
-      source_url:selectedMeals[0].sourceUrl
+      photoUrl: selectedMeals[0].photo_url,
+      sourceUrl:selectedMeals[0].source_url
     }
+    
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*"
+      }
+    };
+      axios
+      .post("/api/meals", postData, axiosConfig)
+      .then(res => {
+       console.log('success')
+       
+      })
+      .catch(err => {
+        // setMsg(err);
+        console.log("AXIOS ERROR:", err);
+      });
+
     console.log(postData)
   };
   // const handleRecipeSend_ = e => {
