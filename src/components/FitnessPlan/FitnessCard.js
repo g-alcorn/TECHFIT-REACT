@@ -35,7 +35,6 @@ const FitnessCard = props => {
         </Modal.Header>
         <Modal.Body className="text-center">
         <iframe style={{height: "75vh", width: "75vh"}} src={props.video_url} allowFullScreen></iframe>
-        {console.log('video url', props.video_url)}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -46,7 +45,7 @@ const FitnessCard = props => {
 
 
   return (
-      <Row className="border pt-4 pb-4 rounded">
+      <Row className="border pt-4 pb-4 rounded" style={{marginTop: "10px"}}>
         <Col lg={6}>
           <img
             style={{ height: "200px" }}
