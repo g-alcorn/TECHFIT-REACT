@@ -7,10 +7,13 @@ import { SET_MEAL_LIST } from "../../reducers/appReducer";
 require('dotenv').config();
 const API_KEY = process.env.REACT_APP_API_KEY
 const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
-const test =()=>{}
-const rowStyle = { minHeight: "60vh",marginTop:'400px' };
+
+const rowStyle = { minHeight: "60vh",marginTop:'100px' };
 
 const MealPlanSection = ({ user, dispatch, mealList }) => {
+  
+  console.log('User from meal plan:',user)
+  
   const [counter, setCounter] = useState(0)
   
   const handleMealCount = () => {
@@ -21,6 +24,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
   
+  //+++++++++++
   const addSelectedMeal = meal => {
     setSelectedMeals([...selectedMeals, meal]);
     handleMealCount();
@@ -51,6 +55,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       axios
       .post("/api/meals", postData, axiosConfig)
       .then(res => {
+
        console.log('success', res)
        
       })
@@ -61,34 +66,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
 
     console.log(postData)
   };
-  // const handleRecipeSend_ = e => {
-  //   e.preventDefault();
-  //   const postData = {
-  //     first_name: form.first_name,
-  //     last_name:form.last_name,
-  //     email: form.email,
-  //     password: form.password
-  //   };
-  //   const axiosConfig = {
-  //     headers: {
-  //       "Content-Type": "application/json;charset=UTF-8",
-  //       "Access-Control-Allow-Origin": "*"
-  //     }
-  //   };
-  //   axios
-  //     .post("/api/users", postData, axiosConfig)
-  //     .then(res => {
-  //       setMsg(res.data.message);
-  //       localStorage.setItem('token', res.data.token);
-  //       resetForm();
-  //       setLogin(true);
-  //     })
-  //     .catch(err => {
-  //       // setMsg(err);
-  //       console.log("AXIOS ERROR:", err);
-  //     });
-  // };
-
 
 
 
