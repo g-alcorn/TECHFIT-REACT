@@ -17,32 +17,17 @@ const MealCard = props => {
 
   return (
     <div>
-      <Row
-        className={
-          active
-            ? " card alert alert-light border pt-4 pb-4 rounded"
-            : " card alert alert-success border pt-4 pb-4 rounded"
-        }
-        style={{ marginTop: "10px", marginRight: "15px" }}
-      >
-        <Col
-          lg={6}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <img
-            style={{ height: "200px" }}
+      <Row className='border rounded p-2 mt-3 mb-3 ' >
+        <Col lg={3} className='p-3' >
+        <img
+           
             className="img-fluid img-thumbnail"
             src={props.image}
             alt="food"
           />
         </Col>
-        <Col lg={6}>
-          <h5>{props.title}</h5>
+        <Col lg={9} >
+        <h5>{props.title}</h5>
           <p>{props.instructions}</p>
           <div className="d-flex flex-row justify-content-between">
             <span>
@@ -71,6 +56,7 @@ const MealCard = props => {
           </a>
         </Col>
       </Row>
+      
     </div>
   );
 };
