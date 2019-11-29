@@ -5,12 +5,12 @@ import Footer from '../components/partials/Footer'
 import Login from '../components/Login/Login'
 
 
-const login = (props) => {
+const login = ({auth,dispatch}) => {
   return (
       < Container className="" fluid={true}>
           < TopNavBar />
 
-      < Login  auth={props.auth}/>
+      < Login dispatch={dispatch}  auth={auth}/>
 
           < Footer/>
          

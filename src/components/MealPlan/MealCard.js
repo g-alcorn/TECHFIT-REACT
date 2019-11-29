@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col , Modal, Button,Badge } from "react-bootstrap";
+
 const MealCard = props => {
+  
   let [active, setActive] = useState(true);
   const handleClickCard = e => {
     setActive(!active);
@@ -14,25 +16,40 @@ const MealCard = props => {
     };
     props.addSelectedMeal(meal);
   };
+  //modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    props.handleRecipeSend();
+    setShow(false);
+  };
+  const handleShow = () => {
+    handleClickCard();
+    setShow(true);
+  };
+  //------
 
   return (
     <div>
+     {/*  <Row  >
+        <Col lg={6} className='bg-dark' >
+        hello
+        </Col>
+        <Col lg={6} className='bg-danger' >
+        hello
+        </Col>
+      </Row> */}
       <Row
         className={
           active
-            ? " card alert alert-light border pt-4 pb-4 rounded"
-            : " card alert alert-success border pt-4 pb-4 rounded"
+            ? " card alert alert-light border  rounded"
+            : " card alert alert-success border rounded"
         }
-        style={{ marginTop: "10px", marginRight: "15px" }}
+       
       >
         <Col
-          lg={6}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
+          sm={6}
+          className='bg-warning w-100'
         >
           <img
             style={{ height: "200px" }}
@@ -41,7 +58,7 @@ const MealCard = props => {
             alt="food"
           />
         </Col>
-        <Col lg={6}>
+        <Col sm={6} className='bg-info w-100' >
           <h5>{props.title}</h5>
           <p>{props.instructions}</p>
           <div className="d-flex flex-row justify-content-between">
@@ -51,7 +68,31 @@ const MealCard = props => {
             <span>
               <i className="fas fa-users"></i> : {props.servings} servings
             </span>
-            <Button
+           {/* modal */}
+            <>
+              <Button variant="primary" onClick={handleShow}>
+                <i className="fas fa-utensils"></i>
+                Add <i className="far fa-plus-square"></i>
+              </Button>
+
+              <Modal  show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Add Recipe</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Add {props.counter} meal(s)</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleClose}>
+                    Save Recipe
+                   
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </>
+{/* modal */}
+            {/* <Button
               onClick={handleClickCard}
               variant="info"
               size="sm"
@@ -59,7 +100,7 @@ const MealCard = props => {
               disabled ={!active}
             >
               Add <i className="far fa-plus-square"></i>
-            </Button>
+            </Button> */}
           </div>
           <a
             href={props.url}

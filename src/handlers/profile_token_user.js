@@ -1,9 +1,11 @@
 import { useEffect } from "react"
 import axios from 'axios'
 import { SET_USER } from '../reducers/appReducer';
-const useProfileTokenUserData = (dispatch) => {
-    useEffect(() => {
-        const axiosConfig = {
+const useProfileTokenUserData = (dispatch,login) => {
+  useEffect(() => {
+    console.log('getin the user')
+      if(login)
+       { const axiosConfig = {
             headers: {
               Authorization:`Bearer ${localStorage.getItem('token')}`,
               "Content-Type": "application/json;charset=UTF-8",
@@ -22,8 +24,9 @@ const useProfileTokenUserData = (dispatch) => {
               // setMsg(err);
               console.log("AXIOS ERROR:", err);
             })
+      }
         
-    }, [dispatch ]);
+    }, [login ]);
     
 }
 

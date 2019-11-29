@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
-import Profile from "./Profile";
+ import Profile from "./Profile";
+import MealPlan from './MealPlan'
 import Login from "./Login";
 import Register from "./Register";
 import appReducer from "../reducers/appReducer";
@@ -12,9 +13,10 @@ const Routes = () => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
-    mealList:[]
+    mealList: [],
+    login:null
   });
-  useProfileTokenUser(dispatch);
+  useProfileTokenUser(dispatch,state.login);
   //dispatch({type:SET_RECIPES,recipes:[1,2,3]})
   // Functions
   const checkAuth = () => {
@@ -34,14 +36,24 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/home" component={() => <Home />} />
-        <Route path="/login" component={() => <Login auth={auth} />} />
+        <Route path="/login" component={() => <Login login={state.login}  dispatch={dispatch} auth={auth} />} />
         <Route path="/register" component={() => <Register auth={auth} />} />
   
+        <Route
+          path="/meal-plan"
+          render={() =>
+            checkAuth() ? (
+              <MealPlan auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
         <Route
           path="/"
           render={() =>
             checkAuth() ? (
-              <Profile auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <Profile auth={auth} userLoading={state.userLoading}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
             ) : (
               <Redirect to="/login" />
             )

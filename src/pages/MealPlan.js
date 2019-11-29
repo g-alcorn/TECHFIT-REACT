@@ -1,20 +1,27 @@
 import React from "react";
 import MealPlanSection from "../components/MealPlan/MealPlanSection";
-import NavBar from "../components/partials/Navbar";
+import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
-import { Container } from "react-bootstrap";
-import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
+import { Container, Col, Row } from "react-bootstrap";
+import Mealinfo from '../components/MealPlan/MealInfo'
 const MealPlan = ({ dispatch, user, mealList }) => {
-  console.log('Dispatch',dispatch)
+  
   return (
-    <Container className="" fluid={true}>
-      <NavBar user={user} />
-   
-      <ProfileInfo user={user} />
-      <MealPlanSection  dispatch={dispatch} mealList={mealList}  user={user} />
+  <Container className="" fluid={true}>
+      <Navbar user={user} />
+     < Mealinfo user={user} />
+
+      <Row style={{ borderBottom: "1px solid black" }}>
+        <Col lg={12}>
+          <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
     
+        </Col>
+     
+      </Row>
+     
       <Footer />
     </Container>
+    
   );
 };
 

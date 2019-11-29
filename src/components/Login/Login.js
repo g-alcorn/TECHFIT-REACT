@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Row, Col, Button, Form } from "react-bootstrap";
-
+import {SET_LOGIN} from '../../reducers/appReducer'
 import axios from 'axios'
 
 export default (props) => {
@@ -46,10 +46,16 @@ export default (props) => {
      .then(res => {
        
         setMsg(res.data.message);
-        if (res.data.token) {
+       if (res.data.token) {
+        setLogin(true);
+         props.dispatch({
+           type: SET_LOGIN,
+           login:true
+           
+          })
           localStorage.setItem("token", res.data.token);
           resetForm();
-          setLogin(true);
+         
          
         } else {
           localStorage.setItem("token", null);
