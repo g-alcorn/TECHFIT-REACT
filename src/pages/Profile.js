@@ -4,10 +4,11 @@ import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import MealPlanSection from "../components/MealPlan/MealPlanSection";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
+import FitnessPlanSection from "../components/FitnessPlan/FitnessPlanSection";
 /* import Tracker from "../components/liquids/Tracker.js";
 import Chart from "../components/liquids/Chart.js"; */
 
-export default function Profile({ dispatch, user,mealList }) {
+export default function Profile({ dispatch, user, workoutList }) {
   return (
     <Container className="" fluid={true}>
       <Navbar user={user} />
@@ -15,7 +16,7 @@ export default function Profile({ dispatch, user,mealList }) {
 
       <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={12}>
-          <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
+          <FitnessPlanSection user={user} workoutList={workoutList} dispatch={dispatch} />
     
         </Col>
      

@@ -1,6 +1,7 @@
 export const SET_USER = "SET_USER";
 export const SET_RECIPES = "SET_RECIPES";
 export const SET_MEAL_LIST = "SET_MEAL_LIST"
+export const SET_WORKOUT_LIST = "SET_WORKOUT_LIST"
 const appReducer = (state, action) => {
     console.log(action)
   switch (action.type) {
@@ -16,11 +17,12 @@ const appReducer = (state, action) => {
               ...state,
               mealList:[...state.mealList,...action.mealList]
           }
-    /*  case SET_RECIPES: //this is the type
-            return {
-                ...state,
-                recipes:action.recipes
-            } */
+      case SET_WORKOUT_LIST:
+          return {
+            ... state,
+            workoutList:[...state.workoutList,...action.workoutList]
+          }
+ 
     default:
       return state;
   }
