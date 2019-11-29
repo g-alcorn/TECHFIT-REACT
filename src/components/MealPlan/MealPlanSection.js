@@ -54,9 +54,8 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     };
       axios
       .post("/api/meals", postData, axiosConfig)
-        .then(res => {
-          //reset selected meals
-         
+      .then(res => {
+
        console.log('success', res)
        
       })
