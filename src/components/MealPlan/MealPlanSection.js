@@ -19,7 +19,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
   const handleMealCount = () => {
     setCounter(counter + 1)
   }
-  // console.log('Dispatch',dispatch)
 
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
@@ -60,7 +59,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
        
       })
       .catch(err => {
-        // setMsg(err);
+        
         console.log("AXIOS ERROR:", err);
       });
 
@@ -107,11 +106,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     resetForm();
   };
 
-  // const handleKeyPress = event => {
-  //   if (event.key === "Enter") {
-  //     console.log("enter press here! ");
-  //   }
-  // };
 
   const resetForm = () => {
     setQuery("");
