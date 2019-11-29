@@ -12,7 +12,8 @@ const Routes = () => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
-    mealList:[]
+    mealList:[],
+    workoutList: []
   });
   useProfileTokenUser(dispatch);
   //dispatch({type:SET_RECIPES,recipes:[1,2,3]})
@@ -41,7 +42,7 @@ const Routes = () => {
           path="/"
           render={() =>
             checkAuth() ? (
-              <Profile auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <Profile auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} workoutList={state.workoutList} />
             ) : (
               <Redirect to="/login" />
             )
