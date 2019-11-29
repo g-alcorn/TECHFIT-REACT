@@ -4,8 +4,10 @@ import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import { Container, Col, Row } from "react-bootstrap";
 import Mealinfo from '../components/MealPlan/MealInfo'
-const MealPlan = ({ dispatch, user, mealList }) => {
-  
+import useProfileTokenUser from "../handlers/profile_token_user";
+
+const MealPlan = ({ dispatch, user, mealList ,login}) => {
+  useProfileTokenUser(dispatch,login);
   return (
   <Container className="" fluid={true}>
       <Navbar user={user} />

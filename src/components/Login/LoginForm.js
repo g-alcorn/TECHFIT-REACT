@@ -4,9 +4,9 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 import {SET_LOGIN} from '../../reducers/appReducer'
 import axios from 'axios'
 
-export default (props) => {
+const LoginForm  = ({login,dispatch,auth}) => {
  
-  const [login, setLogin] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [form, setValues] = useState({
     email: "",
     password: ""
@@ -47,14 +47,16 @@ export default (props) => {
        
         setMsg(res.data.message);
        if (res.data.token) {
-        setLogin(true);
-         props.dispatch({
+         console.log('login')
+         setRedirect(prev => true);
+         resetForm();
+         dispatch({
            type: SET_LOGIN,
            login:true
            
           })
           localStorage.setItem("token", res.data.token);
-          resetForm();
+         
          
          
         } else {
@@ -69,8 +71,8 @@ export default (props) => {
   };
   return (
     <Fragment>
-      {login && <Redirect to="/" />}
-      {!login && (
+      {auth() && <Redirect to="/meal-plan" />}
+      {!auth() && (
         <Row
           style={{ marginTop: "200px", marginBottom: "200px" }}
           className="p-4  d-flex justify-content-center "
@@ -120,3 +122,5 @@ export default (props) => {
     </Fragment>
   );
 };
+
+export default LoginForm;

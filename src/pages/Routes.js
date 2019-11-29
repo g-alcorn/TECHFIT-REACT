@@ -43,7 +43,7 @@ const Routes = () => {
           path="/meal-plan"
           render={() =>
             checkAuth() ? (
-              <MealPlan auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <MealPlan auth={auth}  login={state.login} dispatch={dispatch} mealList={state.mealList} user={state.user} />
             ) : (
               <Redirect to="/login" />
             )
