@@ -7,13 +7,10 @@ import Login from '../components/Login/Login'
 
 const login = (props) => {
   return (
-      < Container className="" fluid={true}>
-          < TopNavBar />
-
-      < Login  auth={props.auth}/>
-
-          < Footer/>
-         
+      <Container className="" fluid={true}>
+        <TopNavBar />
+        <Login  auth={props.auth}/>
+        <Footer/>   
       </Container>
   );
 }
