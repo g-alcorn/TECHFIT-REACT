@@ -18,6 +18,7 @@ const Routes = () => {
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
     mealList: [],
+    workoutList: [],
     login:null
   });
   useProfileTokenUser(dispatch,state.login);
