@@ -80,7 +80,7 @@ const UserInfoForm = ({ user }) => {
               name="first_name"
               onChange={handleFieldChange}
               type="text"
-              placeholder="First Name"
+              placeholder={user.first_name}
               required
             />
           </Form.Group>
@@ -90,7 +90,7 @@ const UserInfoForm = ({ user }) => {
               name="last_name"
               onChange={handleFieldChange}
               type="text"
-              placeholder="Last Name"
+              placeholder={user.last_name}
               required
             />
           </Form.Group>
@@ -100,7 +100,7 @@ const UserInfoForm = ({ user }) => {
               name="email"
               onChange={handleFieldChange}
               type="email"
-              placeholder="Email"
+              placeholder={user.email}
               required
             />
           </Form.Group>
@@ -120,7 +120,7 @@ const UserInfoForm = ({ user }) => {
               name="age"
               onChange={handleFieldChange}
               type="number"
-              placeholder="Age"
+              placeholder={user.age || "Age"}
             />
           </Form.Group>
           <Form.Group>
@@ -138,7 +138,7 @@ const UserInfoForm = ({ user }) => {
               name="image_url"
               onChange={handleFieldChange}
               type="text"
-              placeholder="url-image"
+              placeholder="profile pic (http://)"
             />
           </Form.Group>
           {/* <Form.Group>
