@@ -58,7 +58,11 @@ const Routes = () => {
           path="/meal-plan"
           render={() =>
             checkAuth() ? (
-              <MealPlan dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <MealPage
+                dispatch={dispatch} 
+                mealList={state.mealList} 
+                user={state.user} 
+              />
             ) : (
               <Redirect to="/login" />
             )
@@ -67,7 +71,7 @@ const Routes = () => {
 
         <Route
           path="/fitness-page"
-          render={
+          render={() =>
             checkAuth() ?
             (<FitnessPage
               user={state.user}
@@ -81,7 +85,12 @@ const Routes = () => {
           path="/"
           render={() =>
             checkAuth() ? (
-              <Profile userLoading={state.userLoading}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <Profile 
+                userLoading={state.userLoading}  
+                dispatch={dispatch} 
+                mealList={state.mealList} 
+                user={state.user} 
+              />
             ) : (
               <Redirect to="/login" />
             )

@@ -8,7 +8,7 @@ const FitnessPlan = ({ user, dispatch, workoutList }) => {
   return (
     <Container className="fitness--page" fluid={true}>
       <NavBar />
-      <ProfileInfo />
+      <ProfileInfo user={user} />
       <FitnessPlanSection user={user} dispatch={dispatch} workoutList={workoutList}/>
       <Footer />
     </Container>
