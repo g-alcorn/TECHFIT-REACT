@@ -30,34 +30,58 @@ const Routes = () => {
       return false;
     }
   };
-  const auth = () => {
-    if (checkAuth()) {
-      window.location.href = "/";
-    }
-  };
+  // const auth = () => {
+  //   if (checkAuth()) {
+  //     window.location.href = "/";
+  //   }
+  // };
   // Render
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/home" component={() => <Home />} />
-        <Route path="/login" component={() => <Login login={state.login}  dispatch={dispatch} auth={auth} />} />
-        <Route path="/register" component={() => <Register auth={auth} />} />
+        <Route path="/home" component={() => 
+          checkAuth() ? 
+          (<Redirect to={"/"}/>) : (<Home />)
+        } />
+
+        <Route path="/login" component={() => 
+          checkAuth() ?
+          (<Redirect to={"/"}/>) : (<Login />)
+        } />
+
+        <Route path="/register" component={() => 
+          checkAuth() ?
+          (<Redirect to={"/"}/>) : (<Register />)
+        } />
   
         <Route
           path="/meal-plan"
           render={() =>
             checkAuth() ? (
-              <MealPlan auth={auth}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <MealPlan dispatch={dispatch} mealList={state.mealList} user={state.user} />
             ) : (
               <Redirect to="/login" />
             )
           }
         />
+
+        <Route
+          path="/fitness-page"
+          render={
+            checkAuth() ?
+            (<FitnessPage
+              user={state.user}
+              dispatch={dispatch}
+              workoutList={state.workoutList}
+            />) : (<Redirect to={"/login"} />)
+          }
+        />
+
         <Route
           path="/"
           render={() =>
             checkAuth() ? (
-              <Profile auth={auth} userLoading={state.userLoading}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
+              <Profile userLoading={state.userLoading}  dispatch={dispatch} mealList={state.mealList} user={state.user} />
             ) : (
               <Redirect to="/login" />
             )
