@@ -1,18 +1,17 @@
 import React from "react";
-import { Container, Col, Row, Button, ButtonToolbar, Accordion, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Col, Row, Card, Accordion, Button, ButtonToolbar } from "react-bootstrap";
+import { Link } from "react-router-dom"
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
-import MealPlanSection from "../components/MealPlan/MealPlanSection";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
-import Tracker from "../components/liquids/Tracker.js";
-import LiquidBar from "../components/liquids/LiquidBar.js";
-import LiquidPie from "../components/liquids/LiquidPie.js";
-import Incrementer from "../components/liquids/Incrementer";
 import UserInfoForm from "../components/Profile/ProfileInfoSection/UserInfoForm";
+import MealPlanSection from "../components/MealPlan/MealPlanSection";
+import Tracker from "../components/liquids/Tracker";
+import Incrementer from "../components/liquids/Incrementer";
+import LiquidBar from "../components/liquids/LiquidBar";
+import LiquidPie from "../components/liquids/LiquidPie";
 
-
-export default function Profile({ auth, dispatch, user, mealList }) {
+export default function Profile({ dispatch, user, mealList }) {
   const imageStyle = { height: "100px", width: "100px", marginBottom: "40px" };
 
   function handleIncrease(event) {
@@ -26,7 +25,6 @@ export default function Profile({ auth, dispatch, user, mealList }) {
   return (
     <Container className="" fluid={true}>
       <Navbar user={user} />
-
       <ProfileInfo  user={user} />
       <Row
       style={{ marginTop: "100px", borderBottom: "1px solid black" }}
@@ -146,7 +144,15 @@ export default function Profile({ auth, dispatch, user, mealList }) {
           </Col>
       </Row>
 
+      <Row style={{ borderBottom: "1px solid black" }}>
+        <Col lg={12}>
+          <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
+        </Col>
+      </Row>
+     
       <Footer />
     </Container>
   );
 }
+
+
