@@ -3,6 +3,8 @@ export const SET_RECIPES = "SET_RECIPES";
 export const SET_MEAL_LIST = "SET_MEAL_LIST"
 export const SET_LOGIN = 'SET_LOGIN'
 export const SET_WORKOUT_LIST = "SET_WORKOUT_LIST"
+export const SET_USER_LOADING = "SET_USER_LOADING"
+
 const appReducer = (state, action) => {
     console.log(action)
   switch (action.type) {
@@ -29,6 +31,19 @@ const appReducer = (state, action) => {
         return {
           ... state,
           workoutList:[...state.workoutList,...action.workoutList]
+        }
+
+      case SET_USER_LOADING:
+        if (state.userLoading) {
+          return {
+            ...state,
+            userLoading: false
+          }
+        } else {
+            return {
+            ... state,
+            userLoading: true
+          }
         }
     /*  case SET_RECIPES: //this is the type
             return {

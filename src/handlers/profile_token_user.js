@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import axios from 'axios'
 import { SET_USER } from '../reducers/appReducer';
-const useProfileTokenUserData = (dispatch,login) => {
+const useProfileTokenUserData = (dispatch,login, userLoading) => {
   useEffect(() => {
-    console.log('getin the user')
-      if(login)
+    console.log('getin the user','login:', login)
+      if(!login && userLoading)
        { const axiosConfig = {
             headers: {
               Authorization:`Bearer ${localStorage.getItem('token')}`,
@@ -15,21 +15,19 @@ const useProfileTokenUserData = (dispatch,login) => {
           axios
             .get("/api/users/user-info", axiosConfig)
               .then(res => {
-                console.log(res.data)
+                if(dispatch) {
                   dispatch({
                       type: SET_USER,
                       user:res.data
                 })
+              }
             })
             .catch(err => {
               // setMsg(err);
               console.log("AXIOS ERROR:", err);
             })
       }
-        
-    }, [login ]);
+    }, [localStorage.getItem("token")]);
     
 }
-
-
 export default useProfileTokenUserData;

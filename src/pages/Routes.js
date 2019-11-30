@@ -1,129 +1,62 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
  import Profile from "./Profile";
 import MealPlan from './MealPlan'
 import Login from "./Login";
 import Register from "./Register";
-import FitnessPage from "./FitnessPage";
-import MealPage from "./MealPage";
-import SavedFitnessPage from "./SavedFitnessPage";
-import SavedMealPage from "./SavedMealPage";
 import appReducer from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
-
-
-const Routes = () => {
+import PrivateRoute from './PrivateRoute';
+const Routes = (props) => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
     mealList: [],
-    workoutList: [],
-    login:null
+    login:null,
+    userLoading: true
   });
-  useProfileTokenUser(dispatch,state.login);
   //dispatch({type:SET_RECIPES,recipes:[1,2,3]})
+  useProfileTokenUser(dispatch,state.login, state.userLoading);
+
+
   // Functions
-  const checkAuth = () => {
-    if (localStorage.getItem("token")) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  // const auth = () => {
+  // const checkAuth = () => {
+  //   if (localStorage.getItem("token")) {
+  //     console.log("token is true", localStorage.getItem("token"))
+  //     return true;
+  //   } else {
+  //     console.log("token is false",localStorage.getItem("token"))
+  //     return false;
+  //   }
+  // };
+  // // const auth = () => {
   //   if (checkAuth()) {
-  //     window.location.href = "/";
+  //     console.log('redirect to /');
+  //     // window.location.href = "/";
+  //     // props.history.push('/')
+  //     return <Redirect to='/' />
   //   }
   // };
   // Render
+  console.log(typeof state.user)
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/home" component={() => 
-          checkAuth() ? 
-          (<Redirect to={"/"}/>) : (<Home />)
-        } />
-
-        <Route path="/login" component={() => 
-          checkAuth() ?
-          (<Redirect to={"/"}/>) : (<Login />)
-        } />
-
-        <Route path="/register" component={() => 
-          checkAuth() ?
-          (<Redirect to={"/"}/>) : (<Register />)
-        } />
+        <Route path="/home" component={() => <Home />} />
+        <Route path="/login" component={() => <Login login={state.login}  dispatch={dispatch} />} />
+        <Route path="/register" component={() => <Register />} />
   
-        <Route
+        <PrivateRoute
           path="/meal-plan"
-          render={() =>
-            checkAuth() ? (
-              <MealPage
-                dispatch={dispatch} 
-                mealList={state.mealList} 
-                user={state.user} 
-              />
-            ) : (
-              <Redirect to="/login" />
-            )
-          }
+          component={() => <MealPlan dispatch={dispatch} login={state.login}  mealList={state.mealList} user={state.user} />}
         />
-
-        <Route
-          path="/fitness-page"
-          render={() =>
-            checkAuth() ?
-            (<FitnessPage
-              user={state.user}
-              dispatch={dispatch}
-              workoutList={state.workoutList}
-            />) : (<Redirect to={"/login"} />)
-          }
-        />
-
-        <Route
+        <PrivateRoute
           path="/"
-          render={() =>
-            checkAuth() ? (
-              <Profile 
-                userLoading={state.userLoading}  
-                dispatch={dispatch} 
-                mealList={state.mealList} 
-                user={state.user} 
-              />
-            ) : (
-              <Redirect to="/login" />
-            )
-          }
-        />
-
-        <Route 
-          path="/saved-meal-page"
-          render={
-            checkAuth() ?
-              (<SavedMealPage 
-                user={state.user}
-                dispatch={dispatch}
-                mealList={state.mealList}
-            />) : (<Redirect to={"/login"}/>)
-          }
-        />
-
-        <Route
-          path="/saved-fitness-page"
-          render={
-            checkAuth() ?
-              (<SavedFitnessPage 
-                user={state.user}
-                dispatch={dispatch}
-                workoutList={state.workoutList}
-              />) : (<Redirect to={"/login"}/>)
-          }
+          component={() => <Profile userLoading={state.userLoading}  dispatch={dispatch} mealList={state.mealList} user={state.user} />}
         />
       </Switch>
     </BrowserRouter>
   );
 };
-
 export default Routes;
