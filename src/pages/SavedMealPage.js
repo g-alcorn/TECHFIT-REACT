@@ -4,10 +4,10 @@ import NavBar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import { Container } from "react-bootstrap";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
-const MealPlan = ({ user, dispatch, mealList }) => {
-  console.log('Dispatch',dispatch)
+
+const SavedMealPage = ({ user, dispatch, mealList }) => {
   return (
-    <Container className="meal--page" fluid={true}>
+    <Container className="saved--meal--page" fluid={true}>
       <NavBar user={user} />
    
       <ProfileInfo user={user} />
@@ -18,4 +18,4 @@ const MealPlan = ({ user, dispatch, mealList }) => {
   );
 };
 
-export default MealPlan;
+export default SavedMealPage;

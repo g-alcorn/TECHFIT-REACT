@@ -7,6 +7,8 @@ import Login from "./Login";
 import Register from "./Register";
 import FitnessPage from "./FitnessPage";
 import MealPage from "./MealPage";
+import SavedFitnessPage from "./SavedFitnessPage";
+import SavedMealPage from "./SavedMealPage";
 import appReducer from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 
@@ -59,6 +61,30 @@ const Routes = () => {
             ) : (
               <Redirect to="/login" />
             )
+          }
+        />
+
+        <Route 
+          path="/saved-meal-page"
+          render={
+            checkAuth() ?
+              (<SavedMealPage 
+                user={state.user}
+                dispatch={dispatch}
+                mealList={state.mealList}
+            />) : (<Redirect to={"/login"}/>)
+          }
+        />
+
+        <Route
+          path="/saved-fitness-page"
+          render={
+            checkAuth() ?
+              (<SavedFitnessPage 
+                user={state.user}
+                dispatch={dispatch}
+                workoutList={state.workoutList}
+              />) : (<Redirect to={"/login"}/>)
           }
         />
       </Switch>

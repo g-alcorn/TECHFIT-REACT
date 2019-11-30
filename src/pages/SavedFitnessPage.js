@@ -4,9 +4,10 @@ import Footer from "../components/partials/Footer";
 import { Container } from "react-bootstrap";
 import FitnessPlanSection from "../components/FitnessPlan/FitnessPlanSection";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
-const FitnessPlan = ({ user, dispatch, workoutList }) => {
+
+const SavedFitnessPage = ({ user, dispatch, workoutList }) => {
   return (
-    <Container className="fitness--page" fluid={true}>
+    <Container className="saved--fitness--page" fluid={true}>
       <NavBar />
       <ProfileInfo />
       <FitnessPlanSection user={user} dispatch={dispatch} workoutList={workoutList}/>
@@ -15,4 +16,4 @@ const FitnessPlan = ({ user, dispatch, workoutList }) => {
   );
 };
 
-export default FitnessPlan;
+export default SavedFitnessPage;
