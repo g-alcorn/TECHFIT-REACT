@@ -9,6 +9,7 @@ const FitnessCard = props => {
   const handleClickCard = e => {
     setActive(!active);
     const workout = {
+      id: props.id,
       name: props.name,
       difficulty: props.difficulty,
       workout_description: props.workout_description,
@@ -55,7 +56,7 @@ const FitnessCard = props => {
           />
         </Col>
         <Col lg={6}>
-          <h5>{props.name}</h5>
+          <h5>{props.id}. {props.name}</h5>
           <p>
             {props.workout_description}
           </p>

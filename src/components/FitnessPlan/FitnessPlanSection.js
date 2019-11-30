@@ -40,6 +40,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   console.log('Database Submit', selectedWorkouts)
   e.preventDefault();
   const postData = {
+    user_id: 3,
     workout_id: selectedWorkouts[0].id,
     name: selectedWorkouts[0].name,
     difficulty: selectedWorkouts[0].difficulty,
@@ -100,6 +101,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
             <FitnessCard
               addSelectedWorkout={addSelectedWorkout}
               key={i}
+              id={r.id}
               image_url={r.image_url}
               name={r.name}
               workout_description={r.workout_description}
