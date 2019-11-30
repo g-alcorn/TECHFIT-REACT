@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Row, Col, Button, Form } from "react-bootstrap";
-import {SET_LOGIN} from '../../reducers/appReducer'
+import {SET_LOGIN, SET_USER, SET_USER_LOADING} from '../../reducers/appReducer'
 import axios from 'axios'
 
 export default (props) => {
@@ -40,20 +40,27 @@ export default (props) => {
         //"Access-Control-Allow-Origin": "*"
       }
     };
+
+    props.dispatch({
+      type: SET_USER_LOADING
+    })
+
     axios
       .post("/api/users/login", postData, axiosConfig)
      
-     .then(res => {
-       
+      .then(res => { 
         setMsg(res.data.message);
-       if (res.data.token) {
-        setLogin(true);
+        if (res.data.token) {
+        console.log("token received");
+        //setLogin(true);
          props.dispatch({
            type: SET_LOGIN,
            login:true
            
           })
           localStorage.setItem("token", res.data.token);
+          getUserInfo();
+          
           resetForm();
          
          
@@ -67,10 +74,34 @@ export default (props) => {
         console.log("AXIOS ERROR:", err);
       });
   };
+
+  const getUserInfo = () => {
+    console.log("getting user info")
+    const axiosConfig = {
+      headers: {
+        Authorization:`Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*"
+      }
+    };
+
+    axios
+      .get("/api/users/user-info", axiosConfig)
+      .then(res => {
+        props.dispatch({
+          type: SET_USER,
+          user: res.data
+        })
+      })
+      .catch(e => {
+        console.log("AXIOS ERROR: ", e);
+      })
+  };
+
   return (
     <Fragment>
-      {login && <Redirect to="/" />}
-      {!login && (
+      {localStorage.getItem("token") && <Redirect to="/" />}
+      {!localStorage.getItem("token") && (
         <Row
           style={{ marginTop: "200px", marginBottom: "200px" }}
           className="p-4  d-flex justify-content-center "

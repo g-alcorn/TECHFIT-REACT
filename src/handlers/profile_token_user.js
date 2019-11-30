@@ -27,8 +27,7 @@ const useProfileTokenUserData = (dispatch,login, userLoading) => {
               console.log("AXIOS ERROR:", err);
             })
       }
-        
-    }, [login]);
+    }, [localStorage.getItem("token")]);
     
 }
 export default useProfileTokenUserData;

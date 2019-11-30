@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
  import Profile from "./Profile";
@@ -18,6 +18,8 @@ const Routes = (props) => {
   });
   //dispatch({type:SET_RECIPES,recipes:[1,2,3]})
   useProfileTokenUser(dispatch,state.login, state.userLoading);
+
+
   // Functions
   // const checkAuth = () => {
   //   if (localStorage.getItem("token")) {
