@@ -41,7 +41,9 @@ export default function LiquidBar(props) {
   //y-value is calculated from drinkCount / totalDrinkCount
   
   function generateData(serverData) {
-  
+    for(let i = serverData.length; i >= 0, i--;) {
+      console.log(serverData[i])
+    }
   }
 
 

@@ -11,16 +11,19 @@ const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
 const rowStyle = { minHeight: "60vh",marginTop:'100px' };
 
 const MealPlanSection = ({ user, dispatch, mealList }) => {
+  
+  console.log('User from meal plan:',user)
+  
   const [counter, setCounter] = useState(0)
   
   const handleMealCount = () => {
     setCounter(counter + 1)
   }
-  // console.log('Dispatch',dispatch)
 
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
   
+  //+++++++++++
   const addSelectedMeal = meal => {
     setSelectedMeals([...selectedMeals, meal]);
     handleMealCount();
@@ -51,11 +54,12 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       axios
       .post("/api/meals", postData, axiosConfig)
       .then(res => {
+
        console.log('success', res)
        
       })
       .catch(err => {
-        // setMsg(err);
+        
         console.log("AXIOS ERROR:", err);
       });
 
@@ -101,11 +105,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     resetForm();
   };
 
-  // const handleKeyPress = event => {
-  //   if (event.key === "Enter") {
-  //     console.log("enter press here! ");
-  //   }
-  // };
 
   const resetForm = () => {
     setQuery("");

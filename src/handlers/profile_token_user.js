@@ -15,6 +15,7 @@ const useProfileTokenUserData = (dispatch,login) => {
           axios
             .get("/api/users/user-info", axiosConfig)
               .then(res => {
+                console.log(res.data)
                   dispatch({
                       type: SET_USER,
                       user:res.data

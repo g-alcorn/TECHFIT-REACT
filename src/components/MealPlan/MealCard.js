@@ -112,6 +112,7 @@ const MealCard = props => {
           </a>
         </Col>
       </Row>
+      
     </div>
   );
 };

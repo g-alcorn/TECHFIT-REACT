@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import axios from "axios";
 const UserInfoForm = ({ user }) => {
-  console.log(user);
   const userID = user.id;
-  console.log("USERID", userID);
   const [form, setValues] = useState({
     first_name: "",
     last_name: "",
@@ -27,12 +25,6 @@ const UserInfoForm = ({ user }) => {
       image_url:''
     });
   };
-
-  // const printValues = e => {
-  //   e.preventDefault();
-  //   console.log(form.email, form.password);
-  //   resetForm()
-  // };
 
   const handleFieldChange = e => {
     setValues({
@@ -69,20 +61,15 @@ const UserInfoForm = ({ user }) => {
         window.location.reload();
       })
       .catch(err => {
-        // setMsg(err);
+
         console.log("AXIOS ERROR:", err);
       });
   };
 
-  /*  const printValues = e => {
-    e.preventDefault();
-    console.log(form);
-    resetForm();
-  }; */
+
 
   return (
     <Row
-      //style={{ marginTop: "200px", marginBottom: "200px" }}
       className="p-4  d-flex justify-content-center "
     >
       <Col lg={12}>

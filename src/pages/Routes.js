@@ -5,6 +5,8 @@ import Home from "./Home";
 import MealPlan from './MealPlan'
 import Login from "./Login";
 import Register from "./Register";
+import FitnessPage from "./FitnessPage";
+import MealPage from "./MealPage";
 import appReducer from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 
