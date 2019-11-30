@@ -11,8 +11,8 @@ const MealPlan = ({ dispatch, user, mealList ,login}) => {
   return (
   <Container className="" fluid={true}>
       <Navbar user={user} />
-     < Mealinfo user={user} />
-
+    {/*  < Mealinfo user={user} />
+ */}
       <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={12}>
           <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />

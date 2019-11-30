@@ -16,7 +16,7 @@ const appReducer = (state, action) => {
       case SET_MEAL_LIST:
           return {
               ...state,
-              mealList:[...state.mealList,...action.mealList]
+              mealList:[...action.mealList]
           }
     case SET_LOGIN:
       return {
