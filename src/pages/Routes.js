@@ -39,6 +39,7 @@ const Routes = (props) => {
   //   }
   // };
   // Render
+  console.log(typeof state.user)
   return (
     <BrowserRouter>
       <Switch>
