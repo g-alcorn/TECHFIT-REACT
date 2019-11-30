@@ -22,10 +22,7 @@ export default function Profile({ dispatch, user, mealList }) {
     console.log(event);
   }
 
-  return (
-    <Container className="" fluid={true}>
-      <Navbar user={user} />
-      <ProfileInfo  user={user} />
+  /*
       <Row
       style={{ marginTop: "100px", borderBottom: "1px solid black" }}
       className="p-5 text-center"
@@ -88,11 +85,12 @@ export default function Profile({ dispatch, user, mealList }) {
         </Col>
       </Row>
 
-      <Row style={{ borderBottom: "1px solid black" }}>
-        <Col lg={12}>
-          <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
-        </Col>
-      </Row>
+  */
+
+  return (
+    <Container className="" fluid={true}>
+      <Navbar user={user} />
+      <ProfileInfo  user={user} />
 
       <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={4} style={{ borderRight: "1px solid black" }}>
@@ -142,12 +140,6 @@ export default function Profile({ dispatch, user, mealList }) {
             </Col>
             </Row>
           </Col>
-      </Row>
-
-      <Row style={{ borderBottom: "1px solid black" }}>
-        <Col lg={12}>
-          <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
-        </Col>
       </Row>
      
       <Footer />
