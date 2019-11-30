@@ -7,7 +7,7 @@ import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
 const MealPlan = ({ user, dispatch, mealList }) => {
   console.log('Dispatch',dispatch)
   return (
-    <Container className="" fluid={true}>
+    <Container className="meal--page" fluid={true}>
       <NavBar user={user} />
    
       <ProfileInfo user={user} />

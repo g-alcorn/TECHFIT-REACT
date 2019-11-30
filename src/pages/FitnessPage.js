@@ -6,7 +6,7 @@ import FitnessPlanSection from "../components/FitnessPlan/FitnessPlanSection";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
 const FitnessPlan = ({ user, dispatch, workoutList }) => {
   return (
-    <Container className="" fluid={true}>
+    <Container className="fitness--page" fluid={true}>
       <NavBar />
       <ProfileInfo />
       <FitnessPlanSection user={user} dispatch={dispatch} workoutList={workoutList}/>
