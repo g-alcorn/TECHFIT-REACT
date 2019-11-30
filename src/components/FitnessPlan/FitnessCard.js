@@ -45,7 +45,7 @@ const FitnessCard = props => {
 
 
   return (
-      <Row className="border pt-4 pb-4 rounded" style={{marginTop: "10px"}}>
+      <Row className="border pt-4 pb-4 rounded" style={{marginTop: "10px", width: "800px", display: "flex", justifyContent: "space-evenly"}}>
         <Col lg={6}>
           <img
             style={{ height: "200px" }}
@@ -61,7 +61,7 @@ const FitnessCard = props => {
           </p>
           <div className="d-flex flex-row justify-content-between">
             <span>
-              {props.difficulty} level of difficulty
+            level of difficulty: {props.difficulty} 
             </span>
             <ButtonToolbar>
             <Button variant="info" size="sm" onClick={() => setModalShow(true)}>
