@@ -4,6 +4,10 @@ export const SET_MEAL_LIST = "SET_MEAL_LIST"
 export const SET_LOGIN = 'SET_LOGIN'
 export const SET_WORKOUT_LIST = "SET_WORKOUT_LIST"
 export const SET_USER_LOADING = "SET_USER_LOADING"
+export const SET_USERWORKOUT_LIST = "SET_USERWORKOUT_LIST"
+export const SET_USERMEALS_LIST = "SET_USERMEALS_LIST"
+
+
 
 const appReducer = (state, action) => {
     console.log(action)
@@ -32,6 +36,23 @@ const appReducer = (state, action) => {
           ... state,
           workoutList:[...state.workoutList,...action.workoutList]
         }
+      
+      case SET_USERWORKOUT_LIST:
+          
+          return   {
+            ... state,
+            userWorkoutList:[...state.userWorkoutList,...action.userWorkoutList]
+            
+          }
+          
+      
+      case SET_USERMEALS_LIST:
+          return {
+            ...state,
+            userMealList:[...state.userMealList,...action.userMealList]
+        }
+
+
 
       case SET_USER_LOADING:
         if (state.userLoading) {
@@ -53,6 +74,7 @@ const appReducer = (state, action) => {
     default:
       return state;
   }
+  
 };
 
 export default appReducer;

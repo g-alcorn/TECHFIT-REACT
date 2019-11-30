@@ -4,13 +4,14 @@ import { Container, Col, Row} from "react-bootstrap";
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
+import SavedItems from "../components/Profile/SavedItemsSection/SavedItems"
 
 import Tracker from "../components/liquids/Tracker";
 import Incrementer from "../components/liquids/Incrementer";
 import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
-export default function Profile({ dispatch, user, mealList }) {
+export default function Profile({ dispatch, user, mealList, userWorkoutList}) {
  
   console.log(">>>>>>>>", user)
   if (user) {
@@ -87,6 +88,10 @@ export default function Profile({ dispatch, user, mealList }) {
             </Row>
           </Col>
       </Row>
+
+      <SavedItems dispatch={dispatch} user={user} userWorkoutList={userWorkoutList}/>
+
+
      
       <Footer />
     </Container>

@@ -9,6 +9,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   const rowStyle = { minHeight: "300px", margin: "200px 0px" };
 
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+  // const [loadingWorkouts, setLoadingWorkouts] = useState(false);
 
   const [counter, setCounter] = useState(0)
 
@@ -26,7 +27,9 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   axios
   .get(`/api/workouts`)
   .then(response => {
-    dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
+    // dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
+    // setLoadingWorkouts(false)
+    console.log(response)
     
   })
   .catch(error => {
@@ -71,8 +74,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   console.log(postData)
 };
 
-
- 
+console.log("workout", workoutList)
 
 
 
@@ -97,6 +99,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
           <span className="sr-only">Workouts to add</span>
               </Button>
         <div style={{marginTop: "30px"}}>
+        
           {workoutList.map((r, i) => (
             <FitnessCard
               addSelectedWorkout={addSelectedWorkout}

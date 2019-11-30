@@ -2,7 +2,8 @@ import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
  import Profile from "./Profile";
-import MealPlan from './MealPlan'
+import MealPage from './MealPage'
+import FitnessPage from './FitnessPage'
 import Login from "./Login";
 import Register from "./Register";
 import appReducer, { SET_USER } from "../reducers/appReducer";
@@ -15,6 +16,8 @@ const Routes = (props) => {
     user: null,
     mealList: [],
     workoutList: [],
+    userWorkoutList: [],
+    userMealsList: [],
     login: null,
     userLoading: true
   });
@@ -75,7 +78,11 @@ const Routes = (props) => {
   
         <PrivateRoute
           path="/meal-plan"
-          component={() => <MealPlan dispatch={dispatch} login={state.login}  mealList={state.mealList} user={state.user} />}
+          component={() => <MealPage dispatch={dispatch} login={state.login}  mealList={state.mealList} user={state.user} />}
+        />
+        <PrivateRoute
+          path="/fitness-page"
+          component={() => <FitnessPage dispatch={dispatch} login={state.login}  workoutList={state.workoutList} user={state.user} />}
         />
         <PrivateRoute
           path="/"

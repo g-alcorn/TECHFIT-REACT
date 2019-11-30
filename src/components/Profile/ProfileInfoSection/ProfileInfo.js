@@ -65,7 +65,7 @@ const ProfileInfo = ({ user }) => {
             </Link>
             <Link
               style={{ textDecoration: "none", color: "#000" }}
-              to="/fitness-plan"
+              to="/fitness-page"
             >
               {" "}
               <Button
