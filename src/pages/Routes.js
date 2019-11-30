@@ -5,19 +5,45 @@ import Home from "./Home";
 import MealPlan from './MealPlan'
 import Login from "./Login";
 import Register from "./Register";
-import appReducer from "../reducers/appReducer";
+import appReducer, { SET_USER } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 import PrivateRoute from './PrivateRoute';
+import axios from 'axios';
 const Routes = (props) => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
     mealList: [],
-    login:null,
+    workoutList: [],
+    login: null,
     userLoading: true
   });
-  //dispatch({type:SET_RECIPES,recipes:[1,2,3]})
-  useProfileTokenUser(dispatch,state.login, state.userLoading);
+
+  useProfileTokenUser(dispatch, state.login, state.userLoading);
+
+  useEffect(() => {
+    console.log("getting user info")
+    const axiosConfig = {
+      headers: {
+        Authorization:`Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*"
+      }
+    };
+
+    axios
+      .get("/api/users/user-info", axiosConfig)
+      .then(res => {
+        console.log(res.data)
+        dispatch({
+          type: SET_USER,
+          user: res.data
+        })
+      })
+      .catch(e => {
+        console.log("AXIOS ERROR: ", e);
+      })
+  }, [state.login])
 
 
   // Functions
@@ -38,8 +64,8 @@ const Routes = (props) => {
   //     return <Redirect to='/' />
   //   }
   // };
+
   // Render
-  console.log(typeof state.user)
   return (
     <BrowserRouter>
       <Switch>
