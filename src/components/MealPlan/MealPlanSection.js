@@ -54,9 +54,9 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       axios
       .post("/api/meals", postData, axiosConfig)
       .then(res => {
-
-       console.log('success', res)
-       
+        console.log('success', res)
+        setSelectedMeals([]);
+        setCounter(0)
       })
       .catch(err => {
         
