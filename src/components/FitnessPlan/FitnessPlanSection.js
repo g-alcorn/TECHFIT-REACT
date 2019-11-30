@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import FitnessCard from '../FitnessPlan/FitnessCard'
-import { SET_WORKOUT_LIST } from "../../reducers/appReducer";
+import { SET_WORKOUT_LIST, } from "../../reducers/appReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const FitnessPlanSection = ({user, dispatch, workoutList}) => {
@@ -40,12 +40,13 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   console.log('Database Submit', selectedWorkouts)
   e.preventDefault();
   const postData = {
-    userId: 3,
+    workout_id: selectedWorkouts[0].id,
     name: selectedWorkouts[0].name,
     difficulty: selectedWorkouts[0].difficulty,
     workout_description: selectedWorkouts[0].workout_description,
     image_url: selectedWorkouts[0].image_url,
-    video_url:selectedWorkouts[0].video_url
+    video_url:selectedWorkouts[0].video_url,
+    
   }
   
   const axiosConfig = {
@@ -82,21 +83,19 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
     <Row style={rowStyle} className=" p-4">
       <Col lg={12} className=" d-flex flex-column "         style={{
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center"
       }}>
 
-        <h1>Workouts List Display</h1>
+        <h1 style={{marginBottom: "50px"}}>Workouts List Display</h1>
 
-        <Button
+        <Button 
           className='w-25 mx-auto'
           onClick={handleWorkoutSend}
           variant="primary">
           Add Workout to list <Badge variant="light"> {counter} </Badge>
           <span className="sr-only">Workouts to add</span>
               </Button>
-        <div>
+        <div style={{marginTop: "30px"}}>
           {workoutList.map((r, i) => (
             <FitnessCard
               addSelectedWorkout={addSelectedWorkout}

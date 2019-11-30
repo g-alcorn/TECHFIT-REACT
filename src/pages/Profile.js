@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import React, { Fragment } from "react";
-import { Container, Col, Row } from "react-bootstrap";
-=======
 import React from "react";
 import { Container, Col, Row, Card, Accordion, Button, ButtonToolbar } from "react-bootstrap";
 import { Link } from "react-router-dom"
->>>>>>> a54eaedecd21df524214f078be2672a0e49b4dc3
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
@@ -27,26 +22,6 @@ export default function Profile({ dispatch, user, mealList }) {
     console.log(event);
   }
 
-<<<<<<< HEAD
-export default function Profile({ dispatch, user,mealList,userLoading }) {
-  return (
-    <Fragment>
-    {!userLoading && <Container className="" fluid={true}>
-    <Navbar user={user} />
-    <ProfileInfo  user={user} />
-
-    <Row style={{ borderBottom: "1px solid black" }}>
-      <Col lg={12}>
-        <MealPlanSection user={user} mealList={mealList} dispatch={dispatch} />
-  
-      </Col>
-   
-    </Row>
-   
-    <Footer />
-  </Container>}
-    </Fragment>
-=======
   return (
     <Container className="" fluid={true}>
       <Navbar user={user} />
@@ -177,7 +152,6 @@ export default function Profile({ dispatch, user,mealList,userLoading }) {
      
       <Footer />
     </Container>
->>>>>>> a54eaedecd21df524214f078be2672a0e49b4dc3
   );
 }
 
