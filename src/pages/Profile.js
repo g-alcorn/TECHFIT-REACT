@@ -1,21 +1,22 @@
-import React  from "react";
-import { Container, Col, Row} from "react-bootstrap";
+import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
 
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
+import SavedItems from "../components/Profile/SavedItemsSection/SavedItems"
 
 import Tracker from "../components/liquids/Tracker";
 import Incrementer from "../components/liquids/Incrementer";
 import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
-export default function Profile({ dispatch, user, mealList }) {
- 
+const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
   console.log(">>>>>>>>", user)
   if (user) {
-    console.log('userid',user.id)
+    console.log('userid profile section copy', user.id)
   }
+
   function handleIncrease(event) {
     console.log(event);
   }
@@ -24,21 +25,14 @@ export default function Profile({ dispatch, user, mealList }) {
     console.log(event);
   }
 
-  
-    
-     
- 
-    
-        
- 
 
-  return (
-    <Container className="" fluid={true}>
-     
-      <Navbar user={user} />
-      <ProfileInfo  user={user} />
+    return (
 
-      <Row style={{ borderBottom: "1px solid black" }}>
+      <Container className="" fluid={true}>
+        <Navbar user={user} />
+        <ProfileInfo user={user} />
+
+        <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={4} style={{ borderRight: "1px solid black" }}>
           <Tracker
             waterCounter={() =>
@@ -88,11 +82,19 @@ export default function Profile({ dispatch, user, mealList }) {
             </Row>
           </Col>
       </Row>
-     
-     
-      <Footer />
-    </Container>
-  );
+        {
+          user &&
+          <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} />
+        }
+
+        <Footer />
+      </Container>
+    )
 }
+
+  
+
+export default ProfilePage;
+
 
 

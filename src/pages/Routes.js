@@ -1,11 +1,15 @@
 import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
+
 import Profile from "./Profile";
+import MealPage from './MealPage'
+import FitnessPage from './FitnessPage'
 import PageMealPlan from "./mealPlanPage";
+
 import Login from "./Login";
 import Register from "./Register";
-import appReducer, { SET_USER } from "../reducers/appReducer";
+import appReducer, { SET_USER, SET_WORKOUT_LIST, SET_USERWORKOUT_LIST } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 import PrivateRoute from "./PrivateRoute";
 import axios from "axios";
@@ -15,9 +19,12 @@ const Routes = props => {
     user: null,
     mealList: [],
     workoutList: [],
+    userWorkoutList: [],
+    userMealsList: [],
     login: null,
     userLoading: true
   });
+
   //comment
   useProfileTokenUser(dispatch, state.login, state.userLoading);
 
@@ -42,9 +49,28 @@ const Routes = props => {
       })
       .catch(e => {
         console.log("AXIOS ERROR: ", e);
-      });
-  }, [state.login]);
+      })
+  }, [state.login])
 
+  //axios workouts
+
+  useEffect(() => {
+    axios
+    .get(`/api/workouts`)
+    .then(response => {
+      dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
+      
+      // console.log(response.data)
+      
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  
+  
+   }, [])
+
+   //axious user_workokouts
   return (
     <BrowserRouter>
       <Switch>
@@ -66,6 +92,11 @@ const Routes = props => {
             />
           )}
         />
+        <PrivateRoute
+          path="/fitness-page"
+          component={() => <FitnessPage dispatch={dispatch} login={state.login}  workoutList={state.workoutList} user={state.user} />}
+        />
+
         <PrivateRoute
           path="/"
           component={() => (
