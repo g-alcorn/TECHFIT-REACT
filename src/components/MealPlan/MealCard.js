@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Row, Col , Button } from "react-bootstrap";
+import { Row, Col, Modal, Button,Badge } from "react-bootstrap";
+import ModalCard from '../MealPlan/ModalAddMealPopUp'
 const MealCard = props => {
   
   let [active, setActive] = useState(true);
@@ -46,7 +47,8 @@ const MealCard = props => {
             <span>
               <i className="fas fa-users"></i> : {props.servings} servings
             </span>
-            <Button
+            < ModalCard handleRecipeSend={props.handleRecipeSend} resetMealList={props.resetMealList} handleClickCard={handleClickCard} />
+            {/* <Button
               onClick={handleClickCard}
               variant="info"
               size="sm"
@@ -54,7 +56,7 @@ const MealCard = props => {
               disabled ={!active}
             >
               Add <i className="far fa-plus-square"></i>
-            </Button>
+            </Button> */}
           </div>
           <a
             href={props.url}
