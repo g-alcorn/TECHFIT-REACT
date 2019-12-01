@@ -47,14 +47,27 @@ const ProfileInfo = ({ user }) => {
             </Card>
           </Accordion>
         </Col>
-        <Col lg={3}></Col>
-        <Col lg={3} style={{ textAlign: "right" }}>
+        <Col lg={1}></Col>
+        <Col lg={5} style={{ textAlign: "right" }}>
           <ButtonToolbar className="mt-3">
+          <Link
+              style={{ textDecoration: "none", color: "#000" }}
+              to="/"
+            >
+            
+              <Button
+                variant="info"
+                size="sm"
+                style={{ marginRight: "15px", height: "50px", width: "100px" }}
+              >
+                Profile
+              </Button>
+            </Link>
             <Link
               style={{ textDecoration: "none", color: "#000" }}
               to="/meal-plan"
             >
-              {" "}
+            
               <Button
                 variant="secondary"
                 size="sm"
@@ -67,7 +80,7 @@ const ProfileInfo = ({ user }) => {
               style={{ textDecoration: "none", color: "#000" }}
               to="/fitness-plan"
             >
-              {" "}
+            
               <Button
                 variant="outline-secondary"
                 size="sm"
