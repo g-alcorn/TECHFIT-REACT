@@ -12,7 +12,6 @@ import UserInfoForm from "../Profile/ProfileInfoSection/UserInfoForm";
 const imageStyle = { height: "100px", width: "100px", marginBottom: "40px" };
 
 const MealInfo = ({ user }) => {
-  
   return (
     user && (
       <Row
