@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Button,  ButtonToolbar, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ModalCard from '../FitnessPlan/ModalAddWorkout'
 const FitnessCard = props => {
   
   const [modalShow, setModalShow] = React.useState(false);
@@ -65,6 +66,7 @@ const FitnessCard = props => {
             level of difficulty: {props.difficulty} 
             </span>
             <ButtonToolbar>
+
             <Button variant="info" size="sm" onClick={() => setModalShow(true)}>
       Demo Video <i className="far fa-plus-square"></i>
       </Button>
@@ -75,14 +77,7 @@ const FitnessCard = props => {
             />
           </ButtonToolbar>
 
-            <Button
-              onClick={handleClickCard}
-              variant="info"
-              size="sm"
-              type="submit"
-              disabled={!active}>
-              Add <i className="far fa-plus-square"></i>
-            </Button>
+          < ModalCard handleWorkoutSend={props.handleWorkoutSend} resetWorkoutList={props.resetWorkoutList} handleClickCard={handleClickCard} />
           </div>
         </Col>
       </Row>
