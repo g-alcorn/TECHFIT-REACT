@@ -36,7 +36,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
  const handleWorkoutSend = (e) => {
   console.log('Database Submit', selectedWorkouts)
   const postData = {
-    user_id: 3,
+    user_id: user.id,
     workout_id: selectedWorkouts[0].id,
     name: selectedWorkouts[0].name,
     difficulty: selectedWorkouts[0].difficulty,
