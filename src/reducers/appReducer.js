@@ -8,9 +8,8 @@ export const SET_USERWORKOUT_LIST = "SET_USERWORKOUT_LIST"
 export const SET_USERMEALS_LIST = "SET_USERMEALS_LIST"
 
 
-
 const appReducer = (state, action) => {
-    console.log(action)
+  console.log(action);
   switch (action.type) {
     case SET_USER:
       const { user } = action;
@@ -18,13 +17,13 @@ const appReducer = (state, action) => {
       return {
         ...state,
         user,
-        login:true
+        login: true
       };
-      case SET_MEAL_LIST:
-          return {
-              ...state,
-              mealList:[...state.mealList,...action.mealList]
-          }
+    case SET_MEAL_LIST:
+      return {
+        ...state,
+        mealList: [...state.mealList, ...action.mealList]
+      };
     case SET_LOGIN:
       return {
         ...state,
@@ -52,20 +51,24 @@ const appReducer = (state, action) => {
             userMealList:[...state.userMealList,...action.userMealList]
         }
 
+    case SET_WORKOUT_LIST:
+      return {
+        ...state,
+        workoutList: [...state.workoutList, ...action.workoutList]
+      };
 
-
-      case SET_USER_LOADING:
-        if (state.userLoading) {
-          return {
-            ...state,
-            userLoading: false
-          }
-        } else {
-            return {
-            ... state,
-            userLoading: true
-          }
-        }
+    case SET_USER_LOADING:
+      if (state.userLoading) {
+        return {
+          ...state,
+          userLoading: false
+        };
+      } else {
+        return {
+          ...state,
+          userLoading: true
+        };
+      }
     /*  case SET_RECIPES: //this is the type
             return {
                 ...state,

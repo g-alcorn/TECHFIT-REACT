@@ -26,7 +26,6 @@ const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
   }
 
 
-
     return (
 
       <Container className="" fluid={true}>
@@ -83,23 +82,13 @@ const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
             </Row>
           </Col>
       </Row>
-
         {
           user &&
           <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} />
         }
-         
-
-
-        
-
-
-
 
         <Footer />
       </Container>
-
-
     )
 }
 

@@ -1,71 +1,77 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Row, Col, Button, Form,Badge } from "react-bootstrap";
+import { Row, Col, Button, Form, Badge } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "../MealPlan/MealCard";
 import { SET_MEAL_LIST } from "../../reducers/appReducer";
-require('dotenv').config();
-const API_KEY = process.env.REACT_APP_API_KEY
+require("dotenv").config();
+const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
 
-const rowStyle = { minHeight: "60vh",marginTop:'100px' };
+const rowStyle = { minHeight: "60vh", marginTop: "100px" };
 
 const MealPlanSection = ({ user, dispatch, mealList }) => {
-  
-  console.log('User from meal plan:',user)
-  
-  const [counter, setCounter] = useState(0)
-  
-  const handleMealCount = () => {
-    setCounter(counter + 1)
+  console.log(">>>>>>>>", user);
+  if (user) {
+    console.log("userid", user.id);
   }
+  console.log("User from meal plan:", user);
+
+  const [counter, setCounter] = useState(0);
+
+  const handleMealCount = () => {
+    setCounter(counter + 1);
+  };
 
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
-  
+
+
+  const resetMealList = () => {
+    setSelectedMeals([])
+    setCounter(0)
+  }
   //+++++++++++
   const addSelectedMeal = meal => {
     setSelectedMeals([...selectedMeals, meal]);
     handleMealCount();
-   console.log("Selected Meals", selectedMeals)
+    console.log("Selected Meals", selectedMeals);
   };
 
-
   //+++++++++++
-  const handleRecipeSend = (e) => {
-    console.log('hhh', selectedMeals)
-    e.preventDefault();
+  const handleRecipeSend = e => {
+    console.log("hhh", selectedMeals);
+    //e.preventDefault();
     const postData = {
-      userId:1,
+      userId: user.id,
       recipeTitle: selectedMeals[0].recipe_title,
       recipeDescription: selectedMeals[0].recipe_description,
       prepTime: selectedMeals[0].prep_time,
       servings: selectedMeals[0].servings,
       photoUrl: selectedMeals[0].photo_url,
-      sourceUrl:selectedMeals[0].source_url
-    }
-    
+      sourceUrl: selectedMeals[0].source_url
+    };
+
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
         "Access-Control-Allow-Origin": "*"
       }
     };
-      axios
+    axios
       .post("/api/meals", postData, axiosConfig)
       .then(res => {
 
-       console.log('success', res)
-       
+        setSelectedMeals([]);
+        console.log("success", res);
       })
       .catch(err => {
-        
         console.log("AXIOS ERROR:", err);
       });
 
-    console.log(postData)
+    setSelectedMeals([]);
+    setCounter(0);
   };
- 
 
   //+++++++++++++++++++++
   const [query, setQuery] = useState("");
@@ -105,7 +111,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     resetForm();
   };
 
-
   const resetForm = () => {
     setQuery("");
   };
@@ -124,6 +129,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       >
         <header>
           <h1>Meal Plan Search</h1>
+         
         </header>
 
         <Form style={{ minWidth: "600px" }} onSubmit={handleSubmit}>
@@ -158,21 +164,15 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
         style={{ overflowY: "scroll", maxHeight: "1000px" }}
       >
         <h1 className="text-center">Meals List Display</h1>
-        <Button
-          className='w-25 mx-auto'
-          onClick={handleRecipeSend}
-          variant="primary">
-          Add Meals to list <Badge variant="light"> {counter} </Badge>
-          <span className="sr-only">meals to add</span>
-              </Button>
-         
+        <Badge variant="light">  {counter} meal(s) to add </Badge>
 
         <div>
           {mealList &&
             mealList.map((r, i) => (
               <Card
+                resetMealList={resetMealList}
                 counter={counter}
-              handleRecipeSend={handleRecipeSend}
+                handleRecipeSend={handleRecipeSend}
                 addSelectedMeal={addSelectedMeal}
                 key={i}
                 image={r.data.image}

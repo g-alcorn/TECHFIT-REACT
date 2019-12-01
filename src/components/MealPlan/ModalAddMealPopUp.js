@@ -8,8 +8,8 @@ const PopUpAddBtn = (props) => {
   
     return (
         <>
-      <Button variant="primary" onClick={handleShow}>
-      <i class="fas fa-utensils"></i>
+      <Button variant="primary" onClick={function(event){ handleShow(); props.handleClickCard()}}>
+      <i className="fas fa-utensils"></i>
        Add <i className="far fa-plus-square"></i>
       </Button>
 
@@ -19,12 +19,12 @@ const PopUpAddBtn = (props) => {
         </Modal.Header>
         <Modal.Body>Click save & add recipe to your accnt!!</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={function(event){ handleClose(); props.resetMealList()}}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={function (event) { handleClose(); props.handleRecipeSend();props.resetMealList()}}>
             Save Recipe
-            <Badge variant="light"> {counter} </Badge>                        
+            <Badge variant="light">  </Badge>                        
           </Button>
         </Modal.Footer>
       </Modal>
