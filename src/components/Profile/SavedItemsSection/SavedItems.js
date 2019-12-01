@@ -1,21 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Row, Col, Button, Accordion, Card } from "react-bootstrap";
 import RecipeCardInfo from './RecipeCardInfo'
 import WorkoutCardInfo from './WorkoutCardInfo'
-import { SET_USERWORKOUT_LIST } from "../../../reducers/appReducer";
-import axios from "axios"
+import { SET_USERWORKOUT_LIST, SET_USERMEALS_LIST } from "../../../reducers/appReducer";
 import AccordianWorkout from './AccordianWorkout';
 import AccordianRecipe from './AccordianRecipe'
+import axios from "axios"
 
-const SavedItems = (user, dispatch, userWorkoutList) => {
-
-  console.log("aaaa",userWorkoutList)
+const SavedItems = (user, dispatch, userWorkoutList, userId) => {
+  if (user) {
+    console.log('userid from saveditems',user.userId)
+  }
+  
+  const [workouts, setWorkouts] = useState([])
 
   useEffect(() => {
     axios
-    .get(`/api/user-workouts`)
+    .get(`/api/user-workouts/${user.userId}`)
     .then(response => {
-      console.log("user-workout", response)
+      setWorkouts(response.data)
+      console.log("user-workout", response.data)
       dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
 
       
@@ -26,8 +30,8 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
     })
 
    }, [])
-
    
+   console.log("aaaa",userWorkoutList)
 
 
 
@@ -128,7 +132,7 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
   
       
       <div>
-      {/* {userWorkoutList.map((r, i) => (
+      {workouts.map((r, i) => (
             <AccordianWorkout
               key={i}
               id={r.id}
@@ -139,7 +143,7 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
               video_url={r.video_url}
               
       />
-      ))} */}
+      ))}
       </div>
       <Button variant="secondary" size="lg" block style={{marginTop: "10px"}}>
           Click Here To See More

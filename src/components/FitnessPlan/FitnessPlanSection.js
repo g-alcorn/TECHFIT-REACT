@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const FitnessPlanSection = ({user, dispatch, workoutList}) => {
   const rowStyle = { minHeight: "300px", margin: "200px 0px" };
 
+
+
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   // const [loadingWorkouts, setLoadingWorkouts] = useState(false);
 
@@ -23,21 +25,21 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
     console.log("Selected Workout", selectedWorkouts)
   }
 
- useEffect(() => {
-  axios
-  .get(`/api/workouts`)
-  .then(response => {
-    // dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
-    // setLoadingWorkouts(false)
-    console.log(response)
+//  useEffect(() => {
+//   axios
+//   .get(`/api/workouts`)
+//   .then(response => {
+//     dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
     
-  })
-  .catch(error => {
-    console.log(error)
-  })
+//     // console.log(response.data)
+    
+//   })
+//   .catch(error => {
+//     console.log(error)
+//   })
 
 
- }, [])
+//  }, [])
 
  const handleWorkoutSend = (e) => {
   console.log('Database Submit', selectedWorkouts)

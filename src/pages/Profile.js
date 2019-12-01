@@ -1,5 +1,5 @@
-import React  from "react";
-import { Container, Col, Row} from "react-bootstrap";
+import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
 
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
@@ -11,12 +11,12 @@ import Incrementer from "../components/liquids/Incrementer";
 import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
-export default function Profile({ dispatch, user, mealList, userWorkoutList}) {
- 
+const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
   console.log(">>>>>>>>", user)
   if (user) {
-    console.log('userid',user.id)
+    console.log('userid profile section copy', user.id)
   }
+
   function handleIncrease(event) {
     console.log(event);
   }
@@ -25,20 +25,15 @@ export default function Profile({ dispatch, user, mealList, userWorkoutList}) {
     console.log(event);
   }
 
-  
-    
-     
- 
-    
-        
- 
 
-  return (
-    <Container className="" fluid={true}>
-      <Navbar user={user} />
-      <ProfileInfo  user={user} />
 
-      <Row style={{ borderBottom: "1px solid black" }}>
+    return (
+
+      <Container className="" fluid={true}>
+        <Navbar user={user} />
+        <ProfileInfo user={user} />
+
+        <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={4} style={{ borderRight: "1px solid black" }}>
           <Tracker
             waterCounter={() =>
@@ -89,13 +84,28 @@ export default function Profile({ dispatch, user, mealList, userWorkoutList}) {
           </Col>
       </Row>
 
-      <SavedItems dispatch={dispatch} user={user} userWorkoutList={userWorkoutList}/>
+        {
+          user &&
+          <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} />
+        }
+         
 
 
-     
-      <Footer />
-    </Container>
-  );
+        
+
+
+
+
+        <Footer />
+      </Container>
+
+
+    )
 }
+
+  
+
+export default ProfilePage;
+
 
 
