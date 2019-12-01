@@ -2,7 +2,7 @@ import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
-import PageMealPlan from "./MealPlanPage";
+import PageMealPlan from "./mealPlanPage";
 import Login from "./Login";
 import Register from "./Register";
 import appReducer, { SET_USER } from "../reducers/appReducer";
@@ -18,7 +18,7 @@ const Routes = props => {
     login: null,
     userLoading: true
   });
-
+  //comment
   useProfileTokenUser(dispatch, state.login, state.userLoading);
 
   useEffect(() => {
