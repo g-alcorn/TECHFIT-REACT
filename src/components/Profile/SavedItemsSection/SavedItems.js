@@ -13,6 +13,7 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
   }
   
   const [workouts, setWorkouts] = useState([])
+  const [meals, setMeals] = useState([])
 
   useEffect(() => {
     axios
@@ -33,6 +34,23 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
    
    console.log("aaaa",userWorkoutList)
 
+   useEffect(() => {
+    axios
+    .get(`/api/user-meals/${user.userId}`)
+    .then(res => {
+      setMeals(res.data)
+      console.log("user-meal", res.data)
+      dispatch({ type: SET_USERMEALS_LIST, userMealsList: res.data })
+
+      
+      
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+   }, [])
+
 
 
 
@@ -42,91 +60,33 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
 
   return (
     <Row>
-    <Col lg={5} className="p-5">
-      <h2 className="text-center p-3">Saved Recipes</h2>
-
-
-      <Accordion >
-        <Card style={{ backgroundColor: "white! important" }}>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{ color: "black" }} >
-              Delicious Pear Roasted Chicken
-          </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-
-              <RecipeCardInfo />
-
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="1" style={{ color: "black" }}>
-              Chicken
-          </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
-
-              <RecipeCardInfo />
-
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="2" style={{ color: "black" }}>
-              Chicken
-          </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body>
-
-              <RecipeCardInfo />
-
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="3" style={{ color: "black" }}>
-              Chicken
-          </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="3">
-            <Card.Body>
-
-              <RecipeCardInfo />
-
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="4" style={{ color: "black" }}>
-              Chicken
-          </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="4">
-            <Card.Body>
-
-              <RecipeCardInfo />
-
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        </Accordion>
-        <Button variant="secondary" size="lg" block style={{marginTop: "10px"}}>
+        <Col lg={5} className="p-5">
+    <h2 className="text-center p-3">Saved Recipes</h2>      
+  
+      
+      <div>
+      {meals.map((r, i) => (
+            <AccordianRecipe
+              key={i}
+              id={r.id}
+              photo_url={r.photo_url}
+              recipe_title={r.recipe_title}
+              recipe_description={r.recipe_description}
+              prep_time={r.prep_time}
+              source_url={r.source_url}
+              servings={r.servings}
+              
+      />
+      ))}
+      </div>
+      <Button variant="secondary" size="lg" block style={{marginTop: "10px"}}>
           Click Here To See More
         </Button>
-
-
     </Col>
 
     <Col lg={2}>
     </Col>
+
     <Col lg={5} className="p-5">
     <h2 className="text-center p-3">Saved Workouts</h2>      
   

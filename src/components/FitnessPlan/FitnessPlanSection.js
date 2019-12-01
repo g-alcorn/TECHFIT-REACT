@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import FitnessCard from '../FitnessPlan/FitnessCard'
-import { SET_WORKOUT_LIST, } from "../../reducers/appReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const FitnessPlanSection = ({user, dispatch, workoutList}) => {
@@ -25,25 +24,17 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
     console.log("Selected Workout", selectedWorkouts)
   }
 
-//  useEffect(() => {
-//   axios
-//   .get(`/api/workouts`)
-//   .then(response => {
-//     dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
-    
-//     // console.log(response.data)
-    
-//   })
-//   .catch(error => {
-//     console.log(error)
-//   })
 
 
-//  }, [])
+  const resetWorkoutList = () => {
+    setSelectedWorkouts([])
+    setCounter(0)
+  }
+
+
 
  const handleWorkoutSend = (e) => {
   console.log('Database Submit', selectedWorkouts)
-  e.preventDefault();
   const postData = {
     user_id: 3,
     workout_id: selectedWorkouts[0].id,
@@ -69,7 +60,6 @@ const FitnessPlanSection = ({user, dispatch, workoutList}) => {
      
     })
     .catch(err => {
-      // setMsg(err);
       console.log("AXIOS ERROR:", err);
     });
 
@@ -93,18 +83,14 @@ console.log("workout", workoutList)
 
         <h1 style={{marginBottom: "50px"}}>Workouts List Display</h1>
 
-        <Button 
-          className='w-25 mx-auto'
-          onClick={handleWorkoutSend}
-          variant="primary">
-          Add Workout to list <Badge variant="light"> {counter} </Badge>
-          <span className="sr-only">Workouts to add</span>
-              </Button>
         <div style={{marginTop: "30px"}}>
         
           {workoutList.map((r, i) => (
             <FitnessCard
               addSelectedWorkout={addSelectedWorkout}
+              handleWorkoutSend={handleWorkoutSend}
+              resetWorkoutList={resetWorkoutList}
+              
               key={i}
               id={r.id}
               image_url={r.image_url}
