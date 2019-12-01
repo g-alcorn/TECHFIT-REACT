@@ -34,6 +34,7 @@ export default function Profile({ dispatch, user, mealList }) {
 
   return (
     <Container className="" fluid={true}>
+     
       <Navbar user={user} />
       <ProfileInfo  user={user} />
 
@@ -87,6 +88,7 @@ export default function Profile({ dispatch, user, mealList }) {
             </Row>
           </Col>
       </Row>
+     
      
       <Footer />
     </Container>

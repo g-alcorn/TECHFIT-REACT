@@ -128,6 +128,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       >
         <header>
           <h1>Meal Plan Search</h1>
+         
         </header>
 
         <Form style={{ minWidth: "600px" }} onSubmit={handleSubmit}>
