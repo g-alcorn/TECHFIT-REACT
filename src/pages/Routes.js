@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 
 import Profile from "./Profile";
-import MealPage from './MealPage'
 import FitnessPage from './FitnessPage'
 import PageMealPlan from "./mealPlanPage";
 
