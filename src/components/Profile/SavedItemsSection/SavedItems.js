@@ -6,6 +6,7 @@ import { SET_USERWORKOUT_LIST, SET_USERMEALS_LIST } from "../../../reducers/appR
 import AccordianWorkout from './AccordianWorkout';
 import AccordianRecipe from './AccordianRecipe'
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const SavedItems = (user, dispatch, userWorkoutList, userId) => {
   if (user) {
@@ -79,9 +80,11 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
       />
       ))}
       </div>
+      <Link to="/meal-plan">
       <Button variant="secondary" size="lg" block style={{marginTop: "10px"}}>
-          Click Here To See More
+          Click Here To Add More Meals
         </Button>
+        </Link>
     </Col>
 
     <Col lg={2}>
@@ -105,9 +108,11 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
       />
       ))}
       </div>
-      <Button variant="secondary" size="lg" block style={{marginTop: "10px"}}>
-          Click Here To See More
+      <Link to="/fitness-page">
+      <Button variant="secondary" size="lg" block style={{marginTop: "10px"}} >
+          Click To Add More Workouts
         </Button>
+        </Link>
     </Col>
   </Row>
   )
