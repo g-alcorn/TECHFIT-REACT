@@ -6,10 +6,11 @@ import MealPage from './MealPage';
 import FitnessPage from './FitnessPage';
 import Login from "./Login";
 import Register from "./Register";
-import appReducer, { SET_USER } from "../reducers/appReducer";
+import appReducer, { SET_USER, INIT_DRINK_COUNT } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 import PrivateRoute from './PrivateRoute';
 import axios from 'axios';
+
 const Routes = (props) => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
@@ -29,27 +30,36 @@ const Routes = (props) => {
   useProfileTokenUser(dispatch, state.login, state.userLoading);
 
   useEffect(() => {
-    console.log("getting user info")
     const axiosConfig = {
       headers: {
-        Authorization:`Bearer ${localStorage.getItem('token')}`,
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*"
+        Authorization:`Bearer ${localStorage.getItem('token')}`
       }
     };
 
     axios
       .get("/api/users/user-info", axiosConfig)
       .then(res => {
-        console.log(res.data)
         dispatch({
           type: SET_USER,
           user: res.data
+        });
+      })
+      .then(() => {
+        axios
+        .get(`/api/user-drinks/?id=${state.user.id}`, axiosConfig)
+        .then((results) => {
+          console.log('initial drink counts')
+          console.log(results);
+        })
+        .catch((e) => {
+          console.log("AXIOS ERROR:", e)
         })
       })
       .catch(e => {
         console.log("AXIOS ERROR: ", e);
       })
+
+    console.log('finished setting user')
   }, [state.login])
 
   // Render
