@@ -87,10 +87,10 @@ const appReducer = (state, action) => {
       return {
         ...state,
         drinkCounts: {
-          waterCount: action.waterCount,
-          coffeeCount: action.coffeeCount,
-          sodaCount: action.sodaCount,
-          otherCount: action.otherCount
+          waterCount: action.water_count,
+          coffeeCount: action.coffee_count,
+          sodaCount: action.soda_count,
+          otherCount: action.other_count
         }
       }
 
