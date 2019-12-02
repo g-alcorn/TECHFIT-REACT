@@ -1,12 +1,29 @@
 import React, { useState} from 'react'
 import { Row, Col, Button, Accordion, Card, Modal, ButtonToolbar } from "react-bootstrap";
+import axios from 'axios'
+import {  SET_DELETE_USERMEALS_LIST } from "../../../reducers/appReducer";
 
 
-const AccordianRecipe = props => {
+const AccordianRecipe = (props, user, dispatch) => {
+
+console.log("dispatch", dispatch)
+
+  const handleDelete = (itemId) => {
+    console.log("item", itemId)
+  axios({
+    method: "delete", 
+    url: `/api/user-meals/${user.userId}`,
+    data: {id: itemId} })
+    .then (response => {
+      console.log(response)
+    // props.dispatch({type: SET_DELETE_USERMEALS_LIST, id: itemId })
+    } )
+  }
 
   const [modalShow, setModalShow] = React.useState(false);
   
   const meal = {
+    id: props.id,
     photo_url: props.photo_url,
     recipe_title: props.recipe_title,
     recipe_description: props.recipe_description,
@@ -47,9 +64,22 @@ const AccordianRecipe = props => {
     <Accordion >
         <Card>
           <Card.Header>
+            <Row>
+              <Col lg={6}>
             <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{ color: "black" }}>
               {props.recipe_title}
-          </Accordion.Toggle>
+              </Accordion.Toggle>
+              </Col>
+              <Col lg={6}>
+              <Button 
+              className="btn btn-danger"
+              onClick={()=> handleDelete(props.id)}>
+                Delete
+                </Button>
+              </Col>
+              
+          
+          </Row>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
             <Card.Body>

@@ -8,7 +8,7 @@ import AccordianRecipe from './AccordianRecipe'
 import axios from "axios"
 import { Link } from "react-router-dom"
 
-const SavedItems = (user, dispatch, userWorkoutList, userId) => {
+const SavedItems = (user, dispatch, userWorkoutList) => {
   if (user) {
     console.log('userid from saveditems',user.userId)
   }
@@ -20,6 +20,9 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
     axios
     .get(`/api/user-workouts/${user.userId}`)
     .then(response => {
+      console.log(('-').repeat(50));
+      console.log('user workout');
+      
       setWorkouts(response.data)
       console.log("user-workout", response.data)
       dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
@@ -59,6 +62,8 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
 
 
 
+
+
   return (
     <Row>
         <Col lg={5} className="p-5">
@@ -76,6 +81,8 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
               prep_time={r.prep_time}
               source_url={r.source_url}
               servings={r.servings}
+              dispatch={dispatch}
+              
               
       />
       ))}
