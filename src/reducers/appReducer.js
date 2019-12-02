@@ -56,6 +56,8 @@ const appReducer = (state, action) => {
         };
       
         case SET_DELETE_USERMEALS_LIST:
+
+        
           return {
             ...state,
             userMealList: state.userMealList.filter(userMealList => userMealList.id !== action.id)

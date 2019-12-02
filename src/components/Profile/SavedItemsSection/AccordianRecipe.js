@@ -6,7 +6,7 @@ import {  SET_DELETE_USERMEALS_LIST } from "../../../reducers/appReducer";
 
 const AccordianRecipe = (props, user, dispatch) => {
 
-console.log("dispatch", dispatch)
+
 
   const handleDelete = (itemId) => {
     console.log("item", itemId)
