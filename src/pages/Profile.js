@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Col, Row} from "react-bootstrap";
 
 import Navbar from "../components/partials/Navbar";
@@ -11,9 +11,10 @@ import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
 import useDrinksTracking from "../hooks/useDrinksTracking";
-import axios from 'axios';
+
 
 export default function Profile({ dispatch, user, drinkCounts }) {
+  //Import function from custom hook
   const { handleCountSave } = useDrinksTracking();
 
   const handleCountChange = (event) => {
