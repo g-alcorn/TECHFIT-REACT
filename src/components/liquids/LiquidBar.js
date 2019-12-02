@@ -3,7 +3,7 @@ import axios from 'axios';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryStack, VictoryTheme } from 'victory';
 import GenerateBar from './GenerateBar.js';
 
-export default function LiquidBar(props) {
+export default function LiquidBar({ user }) {
  
   //CREATE REQUEST TO SERVER FOR DATA HERE
   //useEffect from React
@@ -14,14 +14,11 @@ export default function LiquidBar(props) {
   //we want to send the value to GenerateBar
   //we want to generate {x, y} pair for each result
 
-  //Server URI
-  let baseUri = 'http://localhost:3002'
-
   //HANDLES SIDE EFFECTS
   //Runs every time component is updated
   useEffect(() => {
     axios
-      .get(`${baseUri}/api/drinks-tracking`)
+      .get(`/api/user-drinks/?id=${user.id}`)
       .then((res) => {
         generateData(res.data);
         console.log('data fetched!')
