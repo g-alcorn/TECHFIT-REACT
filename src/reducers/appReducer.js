@@ -5,6 +5,7 @@ export const SET_LOGIN = 'SET_LOGIN'
 export const SET_WORKOUT_LIST = "SET_WORKOUT_LIST"
 export const SET_USER_LOADING = "SET_USER_LOADING"
 export const SET_DRINK_COUNT = "SET_DRINK_COUNT"
+export const INIT_DRINK_COUNT = "INIT_DRINK_COUNT"
 
 const appReducer = (state, action) => {
   console.log(action.type)
@@ -81,6 +82,17 @@ const appReducer = (state, action) => {
         }     
       }
       return newState;
+    
+    case INIT_DRINK_COUNT:
+      return {
+        ...state,
+        drinkCounts: {
+          waterCount: action.waterCount,
+          coffeeCount: action.coffeeCount,
+          sodaCount: action.sodaCount,
+          otherCount: action.otherCount
+        }
+      }
 
     default:
       return state;
