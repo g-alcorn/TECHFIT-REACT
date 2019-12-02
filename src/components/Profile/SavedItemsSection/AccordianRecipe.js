@@ -29,7 +29,9 @@ const AccordianRecipe = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
+        <div style={{overflow: "hidden", position: "relative", padding: "20px"}}> 
         <iframe fluid={true} style={{height: "75vh", width: "75vh"}} src={props.source_url} ></iframe>
+        </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
