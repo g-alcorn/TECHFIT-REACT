@@ -51,7 +51,7 @@ const aboutUs = () => {
             size="lg"
             variant="outline-dark"
           >
-            Leearn More
+            Learn More
           </Button>
          <Link to='/register' ><Button style={{ minWidth: "180px" }} size="lg" variant="dark">
             Register

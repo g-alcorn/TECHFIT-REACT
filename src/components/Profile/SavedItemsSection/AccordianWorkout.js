@@ -29,7 +29,9 @@ const AccordianWorkout = props => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="text-center">
-          <iframe fluid={true} style={{height: "75vh", width: "75vh"}} src={props.video_url} allowFullScreen></iframe>
+            <div style={{overflow: "hidden", position: "relative", padding: "20px"}}> 
+          <iframe  className="fluid" style={{minHeight: "75vh", minWidth: "75vh"}} src={props.video_url} allowFullScreen></iframe>
+          </div>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={props.onHide}>Close</Button>

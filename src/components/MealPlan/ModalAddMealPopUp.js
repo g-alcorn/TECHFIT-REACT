@@ -17,7 +17,7 @@ const PopUpAddBtn = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Add Recipe</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Click save & add recipe to your accnt!!</Modal.Body>
+        <Modal.Body>Click save & add recipe to your account!</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={function(event){ handleClose(); props.resetMealList()}}>
             Close
