@@ -11,7 +11,8 @@ const LoginForm = (props) => {
   const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
  
-  const [msg, setMsg] = useState([]);
+  const [msg, setMsg] = useState('');
+  console.log("render with", msg);
 
   const resetForm = () => {
     setEmail('')
@@ -20,7 +21,7 @@ const LoginForm = (props) => {
   const print = (e) => {
     e.preventDefault()
   console.log(email,password)
-}
+  }
 
 
   const handleLogin = e => {
@@ -37,9 +38,9 @@ const LoginForm = (props) => {
       }
     };
 
-    props.dispatch({
-      type: SET_USER_LOADING
-    })
+    // props.dispatch({
+    //   type: SET_USER_LOADING
+    // })
    
     axios
       .post("/api/users/login", postData, axiosConfig)
@@ -47,6 +48,7 @@ const LoginForm = (props) => {
       .then(res => { 
         console.log( "Login Res Data",res.data)
         setMsg(res.data.message);
+        console.log('set the message', res.data.message);
         if (res.data.token) {
         console.log("token received");
         //setLogin(true);
@@ -56,12 +58,10 @@ const LoginForm = (props) => {
            
           })
           localStorage.setItem("token", res.data.token);
-          getUserInfo();
+          // getUserInfo();
           
           resetForm();
-         
-         
-        } 
+        }
         // console.log("response from server>>>", res.data);
       })
       .catch(err => {
@@ -70,29 +70,31 @@ const LoginForm = (props) => {
       });
   };
 
-  const getUserInfo = () => {
-    console.log("getting user info")
-    const axiosConfig = {
-      headers: {
-        Authorization:`Bearer ${localStorage.getItem('token')}`,
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*"
-      }
-    };
+  
 
-    axios
-      .get("/api/users/user-info", axiosConfig)
-      .then(res => {
-        setMsg(res.data)
-        props.dispatch({
-          type: SET_USER,
-          user: res.data
-        })
-      })
-      .catch(e => {
-        console.log("AXIOS ERROR: ", e);
-      })
-  };
+  // // const getUserInfo = () => {
+  // //   console.log("getting user info")
+  // //   const axiosConfig = {
+  // //     headers: {
+  // //       Authorization:`Bearer ${localStorage.getItem('token')}`,
+  // //       "Content-Type": "application/json;charset=UTF-8",
+  // //       "Access-Control-Allow-Origin": "*"
+  // //     }
+  // //   };
+
+  //   axios
+  //     .get("/api/users/user-info", axiosConfig)
+  //     .then(res => {
+  //       setMsg(res.data)
+  //       props.dispatch({
+  //         type: SET_USER,
+  //         user: res.data
+  //       })
+  //     })
+  //     .catch(e => {
+  //       console.log("AXIOS ERROR: ", e);
+  //     })
+  // };
 
   return (
        <Fragment>
@@ -139,7 +141,8 @@ const LoginForm = (props) => {
               >
                 Login
               </Button>
-             <p className='text-danger pt-2' > {msg} </p>
+             {msg && <p className='text-danger pt-2' > {msg} </p>
+               }
               <Form.Text className="text-muted mt-4">
                 <span> Don't have an account? </span>
                 <Link to="/register">Register!</Link>.
