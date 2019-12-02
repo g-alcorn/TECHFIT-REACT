@@ -4,9 +4,10 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 import axios from 'axios'
 export default () => {
  
-  const [login, setLogin] = useState(false);
+  // const [login, setLogin] = useState(false);
+  
 
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState("Email Aready in Use!");
 
 const [form, setValues] = useState({
   first_name: '',
@@ -52,7 +53,7 @@ const handleLogin = e => {
       setMsg(res.data.message);
       // localStorage.setItem('token', res.data.token);
       resetForm();
-      setLogin(true);
+      // setLogin(true);
     })
     .catch(err => {
       // setMsg(err);
@@ -60,6 +61,7 @@ const handleLogin = e => {
     });
 };
  
+// console.log("login", login)
   
   // const printValues = e => {
   //   e.preventDefault();
@@ -69,9 +71,9 @@ const handleLogin = e => {
 
   return (
     <Fragment>
-      {login && < Redirect to='/login' />}
-      {!login && (
-        <Row
+      {msg==="You are logged in!!" && < Redirect to='/login' />}
+      {/* {!msg="You are logged in!!" && ( */}
+        {msg==="Email Aready in Use!" && (<Row
       style={{ marginTop: "200px", marginBottom: "200px" }}
       className="p-4  d-flex justify-content-center "
     >
