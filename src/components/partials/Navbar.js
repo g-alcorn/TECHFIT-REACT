@@ -16,7 +16,7 @@ const navbar = props => {
           expand="lg"
         >
           <Navbar className="font-weight-bolder" href="#home">
-            <Link style={{ textDecoration: "none", color: "black" }} to="/home">
+            <Link style={{ textDecoration: "none", color: "black" }} to="/">
               <img
                 style={{ width: "100px" }}
                 className="img-fluid"
