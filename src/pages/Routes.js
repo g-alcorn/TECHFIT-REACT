@@ -16,6 +16,12 @@ const Routes = (props) => {
     user: null,
     mealList: [],
     workoutList: [],
+    drinkCounts: {
+      waterCount: 0,
+      coffeeCount: 0,
+      sodaCount: 0,
+      otherCount: 0
+    },
     login: null,
     userLoading: true
   });
@@ -69,10 +75,12 @@ const Routes = (props) => {
           path="/meal-plan"
           component={() => <MealPage dispatch={dispatch} login={state.login}  mealList={state.mealList} user={state.user} />}
         />
+
         <PrivateRoute
           path="/"
-          component={() => <Profile userLoading={state.userLoading} dispatch={dispatch} mealList={state.mealList} user={state.user} />}
+          component={() => <Profile userLoading={state.userLoading} dispatch={dispatch} mealList={state.mealList} user={state.user} drinkCounts={state.drinkCounts}/>}
         />
+
         <PrivateRoute
           path="/fitness-plan"
           component={() => <FitnessPage userLoading={state.userLoading} dispatch={dispatch} mealList={state.mealList} user={state.user} />}
