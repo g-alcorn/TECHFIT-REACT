@@ -12,6 +12,7 @@ import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
 const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
+  //comment
   console.log(">>>>>>>>", user)
   if (user) {
     console.log('userid profile section copy', user.id)
