@@ -11,11 +11,10 @@ import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
 import useDrinksTracking from "../hooks/useDrinksTracking";
-import axios from "axios";
+import axios from 'axios';
 
 export default function Profile({ dispatch, user, drinkCounts }) {
   const { handleCountSave } = useDrinksTracking();
-
 
   const handleCountChange = (event) => {
     event.preventDefault();
