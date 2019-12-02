@@ -50,7 +50,7 @@ const handleLogin = e => {
     .post("/api/users", postData, axiosConfig)
     .then(res => {
       setMsg(res.data.message);
-      localStorage.setItem('token', res.data.token);
+      // localStorage.setItem('token', res.data.token);
       resetForm();
       setLogin(true);
     })
@@ -69,7 +69,7 @@ const handleLogin = e => {
 
   return (
     <Fragment>
-      {login && < Redirect to='/' />}
+      {login && < Redirect to='/login' />}
       {!login && (
         <Row
       style={{ marginTop: "200px", marginBottom: "200px" }}
