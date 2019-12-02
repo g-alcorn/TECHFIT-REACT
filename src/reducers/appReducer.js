@@ -22,7 +22,10 @@ const appReducer = (state, action) => {
     case SET_MEAL_LIST:
       return {
         ...state,
-        mealList: [...state.mealList, ...action.mealList]
+        //add new meal query to the top
+        mealList: [...action.mealList ]
+        //adds new meal query to the bottom
+        // mealList: [...state.mealList, ...action.mealList]
       };
     case SET_LOGIN:
       return {

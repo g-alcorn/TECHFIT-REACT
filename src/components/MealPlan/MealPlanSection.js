@@ -83,7 +83,7 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       .then(response => {
         const promises = [];
         for (let recipe of response.data) {
-          promises.push(
+          promises.unshift(
             axios.get(
               `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${API_KEY}`
             )
@@ -113,7 +113,12 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
 
   const resetForm = () => {
     setQuery("");
+    // clearMealListDisplay()
   };
+
+  // const clearMealListDisplay = () => {
+  //   dispatch({ type: SET_MEAL_LIST, mealList: [] })
+  // }
 
   return (
     <Row style={rowStyle} className=" p-4">
@@ -152,6 +157,8 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
               marginTop: "50px",
               filter: "grayscale(100%)"
             }}
+            
+            
           >
             Search
           </Button>
