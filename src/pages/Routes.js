@@ -44,23 +44,41 @@ const Routes = (props) => {
           user: res.data
         });
       })
-      .then(() => {
-        axios
-        .get(`/api/user-drinks/?id=${state.user.id}`, axiosConfig)
-        .then((results) => {
-          console.log('initial drink counts')
-          console.log(results);
-        })
-        .catch((e) => {
-          console.log("AXIOS ERROR:", e)
-        })
-      })
       .catch(e => {
         console.log("AXIOS ERROR: ", e);
       })
 
     console.log('finished setting user')
   }, [state.login])
+
+  useEffect(() => {
+    const axiosConfig = {
+      headers: {
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+      }
+    };
+
+    if (state.user !== null) {
+      axios
+        .get(`/api/user-drinks/?id=${state.user.id}`, axiosConfig)
+        .then((results) => {
+          console.log(results);
+          const { water_count, coffee_count, soda_count, other_count } = results.data.rows[0];
+          if (results.data.rowCount > 0) {
+            console.log(water_count);
+            dispatch({
+              type: INIT_DRINK_COUNT,
+              water_count, coffee_count, soda_count, other_count
+            });
+          }
+        })
+        .catch((e) => {
+          console.log("AXIOS ERROR:", e)
+        })
+      } else {
+        console.log('state.user is null')
+      }
+  }, [state.user])
 
   // Render
   return (
