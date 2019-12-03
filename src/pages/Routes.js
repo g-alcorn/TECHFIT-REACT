@@ -28,14 +28,14 @@ const Routes = (props) => {
   });
 
   useProfileTokenUser(dispatch, state.login, state.userLoading);
-
+  
+  const axiosConfig = {
+    headers: {
+      Authorization:`Bearer ${localStorage.getItem('token')}`
+    }
+  };
+  
   useEffect(() => {
-    const axiosConfig = {
-      headers: {
-        Authorization:`Bearer ${localStorage.getItem('token')}`
-      }
-    };
-
     axios
       .get("/api/users/user-info", axiosConfig)
       .then(res => {
@@ -52,20 +52,12 @@ const Routes = (props) => {
   }, [state.login])
 
   useEffect(() => {
-    const axiosConfig = {
-      headers: {
-        Authorization:`Bearer ${localStorage.getItem('token')}`
-      }
-    };
-
     if (state.user !== null) {
       axios
         .get(`/api/user-drinks/?id=${state.user.id}`, axiosConfig)
         .then((results) => {
-          console.log(results);
           const { water_count, coffee_count, soda_count, other_count } = results.data.rows[0];
           if (results.data.rowCount > 0) {
-            console.log(water_count);
             dispatch({
               type: INIT_DRINK_COUNT,
               water_count, coffee_count, soda_count, other_count
