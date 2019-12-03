@@ -22,7 +22,7 @@ export default function Profile({ dispatch, user, drinkCounts }) {
     const target = event.currentTarget.className;
     const drinkType = target.split("-")[0];
     const operation = target.split("-")[1];
-    handleCountSave(dispatch, user.id, drinkType, operation);
+    handleCountSave(dispatch, user.id, drinkType, operation, drinkCounts);
   }
 
   return (
