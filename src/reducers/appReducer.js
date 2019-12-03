@@ -18,7 +18,8 @@ const appReducer = (state, action) => {
       return {
         ...state,
         user,
-        login: true
+        login: true,
+        userLoading: false
       };
       
     case SET_MEAL_LIST:
