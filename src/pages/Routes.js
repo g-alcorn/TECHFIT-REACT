@@ -32,7 +32,7 @@ const Routes = props => {
   useMealsList(dispatch,state.login, state.user);
 
   useEffect(() => {
-    console.log("getting user info");
+   
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -7,6 +7,7 @@ export const SET_USER_LOADING = "SET_USER_LOADING"
 export const SET_USERWORKOUT_LIST = "SET_USERWORKOUT_LIST"
 export const SET_USERMEALS_LIST = "SET_USERMEALS_LIST"
 export const SET_DELETE_USERMEALS_LIST = "SET_DELETE_USERMEALS_LIST"
+export const SET_DELETE_WORKOUTS_LIST = "SET_DELETE_WORKOUTS_LIST"
 export const SET_TEST = 'SET_TEST';
 const appReducer = (state, action) => {
   console.log(action);
@@ -59,6 +60,14 @@ const appReducer = (state, action) => {
             ...state,
             userMealList: state.userMealList.filter(userMealList => userMealList.id !== action.id)
         }
+
+        case SET_DELETE_WORKOUTS_LIST:
+        
+            return {
+              ...state,
+              userWorkoutList: state.userWorkoutList.filter(userWorkoutList => userWorkoutList.id !== action.id)
+          }
+
     case SET_WORKOUT_LIST:
       return {
         ...state,

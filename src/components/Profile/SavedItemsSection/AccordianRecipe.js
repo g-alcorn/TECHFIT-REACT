@@ -6,11 +6,11 @@ import {  SET_DELETE_USERMEALS_LIST } from "../../../reducers/appReducer";
 
 const AccordianRecipe = (props, user) => {
 
-  console.log("dispatch", props.handleDeleteRecipe)
+  
 
 
   const handleDeleteRecipe = (itemId) => {
-    console.log("item", itemId)
+
   axios({
     method: "delete", 
     url: `/api/user-meals/${user.userId}`,

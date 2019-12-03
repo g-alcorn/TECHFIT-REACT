@@ -1,53 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { Row, Col, Button, Accordion, Card } from "react-bootstrap";
-import RecipeCardInfo from './RecipeCardInfo'
-import WorkoutCardInfo from './WorkoutCardInfo'
-import { SET_USERWORKOUT_LIST, SET_USERMEALS_LIST } from "../../../reducers/appReducer";
+
 import AccordianWorkout from './AccordianWorkout';
 import AccordianRecipe from './AccordianRecipe'
-import axios from "axios"
+
 import { Link } from "react-router-dom"
-const SavedItems = ({userId, user, dispatch, userWorkoutList, userMealList}) => {
-  if (user) {
-    console.log('userid from saveditems',userId)
-  }
-  
-  // const [workouts, setWorkouts] = useState([])
-  const [meals, setMeals] = useState([])
+const SavedItems = ({dispatch, userWorkoutList, userMealList}) => {
+
  
-  // useEffect(() => {
-  //   axios
-  //   .get(`/api/user-workouts/${userId}`)
-  //   .then(response => {
-  //     console.log(('-').repeat(30));
-      
-  //     // setWorkouts(response.data)
-  //     console.log("user-workout", response.data)
-  //     dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
-      
-      
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //   })
-  //  }, [userId])
-   
-  
-  //  useEffect(() => {
-  //   axios
-  //   .get(`/api/user-meals/${userId}`)
-  //   .then(res => {
-  //     setMeals(res.data)
-  //     console.log(('-').repeat(30));
-  //     console.log("user-meal", res.data)
-  //     // dispatch({ type: SET_USERMEALS_LIST, userMealsList: res.data })
-      
-      
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //   })
-  //  }, [userId])
   return (
     <Row>
         <Col lg={5} className="p-5">
@@ -93,6 +53,7 @@ const SavedItems = ({userId, user, dispatch, userWorkoutList, userMealList}) => 
               workout_description={r.workout_description}
               difficulty={r.difficulty}
               video_url={r.video_url}
+              dispatch={dispatch}
               
       />
       ))}

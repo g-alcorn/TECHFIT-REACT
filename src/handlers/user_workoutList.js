@@ -7,10 +7,10 @@ const useWorkoutList = (dispatch, login, user) => {
       axios
         .get(`/api/user-workouts/${user.id}`)
         .then(response => {
-          console.log(('-').repeat(30));
+ 
         
           // setWorkouts(response.data)
-          console.log("user-workout", response.data)
+
           dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
         })
         .catch(error => {

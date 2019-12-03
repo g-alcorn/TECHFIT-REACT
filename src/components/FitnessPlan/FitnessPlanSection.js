@@ -15,14 +15,14 @@ const FitnessPlanSection = ({user, dispatch, workoutList, userWorkoutList}) => {
   const addSelectedWorkout = workout => {
     setSelectedWorkouts([...selectedWorkouts, workout]);
     handleWorkoutCount();
-    console.log("Selected Workout", selectedWorkouts)
+
   }
   const resetWorkoutList = () => {
     setSelectedWorkouts([])
     setCounter(0)
   }
  const handleWorkoutSend = (e) => {
-  console.log('Database Submit', selectedWorkouts)
+ 
   const postData = {
     user_id: user.id,
     workout_id: selectedWorkouts[0].id,
@@ -53,16 +53,16 @@ const FitnessPlanSection = ({user, dispatch, workoutList, userWorkoutList}) => {
         image_url: selectedWorkouts[0].image_url,
         video_url:selectedWorkouts[0].video_url,
       }
-     console.log('success in fitness', res.data.id)
+   
      dispatch({type: SET_USERWORKOUT_LIST, userWorkoutList: [userWorkoutList]});
      
     })
     .catch(err => {
       console.log("AXIOS ERROR:", err);
     });
-  console.log(postData)
+
 };
-console.log("workout", workoutList)
+
   return (
     <Row style={rowStyle} className=" p-4">
       <Col lg={12} className=" d-flex flex-column "         style={{

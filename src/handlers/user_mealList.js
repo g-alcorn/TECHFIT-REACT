@@ -7,7 +7,7 @@ const useMealsList = (dispatch, login, user) => {
       axios
       .get(`/api/user-meals/${user.id}`)
       .then(res => {
-        console.log(('-').repeat(30));
+
         dispatch({ type: SET_USERMEALS_LIST, userMealList: res.data })
       })
       .catch(error => {
