@@ -3,32 +3,27 @@ import axios from 'axios';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryStack, VictoryTheme } from 'victory';
 import GenerateBar from './GenerateBar.js';
 
-export default function LiquidBar(props) {
- 
-  //CREATE REQUEST TO SERVER FOR DATA HERE
-  //useEffect from React
-  //One request for all drink data???
-  //we want to separate each drink from the results
-  //we want to select the most recent 7 results
-
-  //we want to send the value to GenerateBar
-  //we want to generate {x, y} pair for each result
-
-  //Server URI
-  let baseUri = 'http://localhost:3002'
-
-  //HANDLES SIDE EFFECTS
-  //Runs every time component is updated
+export default function LiquidBar({ user }) {
+  const bars = [];
+  
   useEffect(() => {
-    axios
-      .get(`${baseUri}/api/drinks-tracking`)
-      .then((res) => {
-        generateData(res.data);
-        console.log('data fetched!')
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (user !== null) {
+      const axiosConfig = {
+        headers: {
+          Authorization:`Bearer ${localStorage.getItem('token')}`
+        }
+      };
+
+      axios
+        .get(`/api/user-drinks/chart?id=${user.id}`, axiosConfig)
+        .then((res) => {
+          generateData(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+
   });
 
   //DATA MANIPULATION
@@ -41,11 +36,54 @@ export default function LiquidBar(props) {
   //y-value is calculated from drinkCount / totalDrinkCount
   
   function generateData(serverData) {
-    for(let i = serverData.length; i >= 0, i--;) {
-      console.log(serverData[i])
+    const barData = [];
+
+    for (let j = 0; j < 4; j++) {
+      let drinkType;
+      switch (j) {
+        case 0:
+          drinkType = 'waterCount';
+        case 1:
+          drinkType = 'coffeeCount';
+        case 2:
+          drinkType = 'sodaCount';
+        case 3:
+          drinkType = 'otherCount';
+        default:
+          drinkType = 'otherCount';
+      }
+
+      for (let i = 0; i < serverData.rows.length; i++) {
+        barData.push(serverData.rows[i][drinkType]);
+      }
+
+      generateBar(drinkType, barData);
+    }
+
+  }
+
+  //CHOOSE BAR COLOR
+  function determineColor(drinkType) {
+    switch (drinkType) {
+      case 'water':
+        return 'cyan';
+
+      case 'coffee':
+        return 'tan';
+
+      case 'soda':
+        return 'tomato';
+
+      default:
+        return 'grey'
+
     }
   }
 
+  function generateBar(drinkType, data) {
+    let fillColor = determineColor(drinkType);
+
+  }
 
   return (
     <Fragment>
@@ -75,11 +113,14 @@ export default function LiquidBar(props) {
         <VictoryLine />
 
         {/* STACKED BAR CHART */}
-        <VictoryStack>
-          {GenerateBar('water')}
-          {GenerateBar('coffee')}
-          {GenerateBar('soda')}
-        </VictoryStack>
+ 
+        {/* <VictoryStack>
+          {generateBar('water')}
+          {generateBar('coffee')}
+          {generateBar('soda')}
+          {generateBar('other')}
+        </VictoryStack> */}
+
       </VictoryChart>
     </Fragment>
   )

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row} from "react-bootstrap";
 
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
@@ -11,6 +11,9 @@ import Incrementer from "../components/liquids/Incrementer";
 import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
+import useDrinksTracking from "../hooks/useDrinksTracking";
+
+
 const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
   //comment
 
@@ -21,48 +24,51 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
   function handleIncrease(event) {
     console.log(event);
   }
+  const { handleCountSave } = useDrinksTracking();
 
-  function handleDecrease(event) {
-    console.log(event);
+  const handleCountChange = (event) => {
+    event.preventDefault();
+    const target = event.currentTarget.className;
+    const drinkType = target.split("-")[0];
+    const operation = target.split("-")[1];
+    handleCountSave(dispatch, user.id, drinkType, operation, drinkCounts);
   }
 
-
-    return (
-
-      <Container className="" fluid={true}>
-        <Navbar user={user} />
-        <ProfileInfo user={user} />
+  return (
+    <Container className="profile--page" fluid={true}>
+      <Navbar user={user} />
+      <ProfileInfo  user={user} />
 
         <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={4} style={{ borderRight: "1px solid black" }}>
           <Tracker
-            waterCounter={() =>
+            waterCounter={
             <Incrementer 
-              name={'Water '} 
-              user={user}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
+              name={'water'} 
+              count={drinkCounts.waterCount}
+              handleIncrease={handleCountChange}
+              handleDecrease={handleCountChange}
             />}
-            coffeeCounter={() =>
+            coffeeCounter={
             <Incrementer 
-              name={'Coffee'} 
-              user={user}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
+              name={'coffee'} 
+              count={drinkCounts.coffeeCount}
+              handleIncrease={handleCountChange}
+              handleDecrease={handleCountChange}
             />}
-            sodaCounter={() =>
+            sodaCounter={
             <Incrementer 
-              name={'Soda '} 
-              user={user}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
+              name={'soda'} 
+              count={drinkCounts.sodaCount}
+              handleIncrease={handleCountChange}
+              handleDecrease={handleCountChange}
             />}
-            otherCounter={() =>
+            otherCounter={
             <Incrementer 
-              name={'Other '} 
-              user={user} 
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
+              name={'other'} 
+              count={drinkCounts.otherCount}
+              handleIncrease={handleCountChange}
+              handleDecrease={handleCountChange}
             />}
             />
           </Col>
@@ -71,16 +77,17 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
               {" "}
               Liquid Consumption Chart 
             </h3>
-        
-            <Row>
-            <Col>
-              <LiquidBar />
-            </Col>
-            
-            <Col>
-              <LiquidPie />
-            </Col>
-            </Row>
+            {user && (
+              <Row>
+                <Col>
+                  <LiquidBar user={user}/>
+                </Col>
+                
+                <Col>
+                  <LiquidPie user={user}/>
+                </Col>
+              </Row>              
+            )}
           </Col>
       </Row>
         {

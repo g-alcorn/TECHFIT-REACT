@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
-
 import Profile from "./Profile";
 import FitnessPage from './FitnessPage'
 import PageMealPlan from "./mealPlanPage";
@@ -20,19 +19,24 @@ const Routes = props => {
     user: null,
     mealList: [],
     workoutList: [],
+    drinkCounts: {
+      waterCount: 0,
+      coffeeCount: 0,
+      sodaCount: 0,
+      otherCount: 0
+    },
     userWorkoutList: [],
     userMealList: [],
     login: null,
     userLoading: true
   });
 
-  //comment
+
   useProfileTokenUser(dispatch, state.login, state.userLoading);
   useWorkoutList(dispatch, state.login, state.user);
   useMealsList(dispatch,state.login, state.user);
 
   useEffect(() => {
-   
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,7 +48,6 @@ const Routes = props => {
     axios
       .get("/api/users/user-info", axiosConfig)
       .then(res => {
-        console.log(res.data);
         dispatch({
           type: SET_USER,
           user: res.data
@@ -55,34 +58,58 @@ const Routes = props => {
       })
   }, [state.login])
 
-  //axios workouts
+  useEffect(() => {
+    if (state.user !== null) {
+      axios
+        .get(`/api/user-drinks/?id=${state.user.id}`, axiosConfig)
+        .then((results) => {
+          const { water_count, coffee_count, soda_count, other_count } = results.data.rows[0];
+          if (results.data.rowCount > 0) {
+            dispatch({
+              type: INIT_DRINK_COUNT,
+              water_count, coffee_count, soda_count, other_count
+            });
+          }
+        })
+        .catch((e) => {
+          console.log("AXIOS ERROR:", e)
+        })
+      } else {
+        console.log('state.user is null')
+      }
+  }, [state.user])
 
+  //axios workouts
   useEffect(() => {
     axios
     .get(`/api/workouts`)
     .then(response => {
       dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
-      
-      // console.log(response.data)
-      
     })
     .catch(error => {
       console.log(error)
-    })
-  
-  
+    })  
    }, [])
+
 
    //axious user_workokouts
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/home" component={() => <Home />} />
-        <Route
-          path="/login"
-          component={() => <Login login={state.login} dispatch={dispatch} />}
-        />
-        <Route path="/register" component={() => <Register />} />
+        <Route 
+          path="/home" 
+          component={() => 
+            state.user ? (<Redirect to={"/"}/>) : (<Home />)
+          } />
+        <Route 
+          path="/login" 
+          component={() => 
+            state.user ? (<Redirect to={"/"}/>) : (<Login login={state.login}  dispatch={dispatch} />)
+          } />
+        <Route 
+          path="/register" 
+          component={() => 
+            state.user ? (<Redirect to={"/"}/>) : (<Register />)} />
 
         <PrivateRoute
           path="/meal-plan"
@@ -106,10 +133,11 @@ const Routes = props => {
             <Profile
             userLoading={state.userLoading}
             dispatch={dispatch}
-            mealList={state.mealList}
             user={state.user}
+            drinkCounts={state.drinkCounts}
             userWorkoutList={state.userWorkoutList}
             userMealList={state.userMealList}
+            mealList={state.mealList}
           />
           )}
         />
