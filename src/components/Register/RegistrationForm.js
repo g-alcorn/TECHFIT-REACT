@@ -6,8 +6,11 @@ export default () => {
  
   // const [login, setLogin] = useState(false);
   
+  
 
-  const [msg, setMsg] = useState("Email Aready in Use!");
+  const [msg, setMsg] = useState("");
+
+  console.log("MESSAGE", msg)
 
 const [form, setValues] = useState({
   first_name: '',
@@ -73,7 +76,71 @@ const handleLogin = e => {
     <Fragment>
       {msg==="You are logged in!!" && < Redirect to='/login' />}
       {/* {!msg="You are logged in!!" && ( */}
-        {msg==="Email Aready in Use!" && (<Row
+        {!msg && (<Row
+      style={{ marginTop: "200px", marginBottom: "200px" }}
+      className="p-4  d-flex justify-content-center "
+    >
+      <Col style={{ maxWidth: "600px" }} lg={12}>
+        <Form onSubmit={handleLogin} style={{ minWidth: "600px" }}>
+        <Form.Group >
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              value={form.first_name}
+              name='first_name'
+              onChange={handleFieldChange}
+              type="text" placeholder="First Name" />
+          </Form.Group>
+          <Form.Group >
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              value={form.last_name}
+              name='last_name'
+              onChange={handleFieldChange}
+              type="text" placeholder="Last Name" />
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+            value={form.email}
+              name='email'
+              onChange={handleFieldChange}
+              type="email" placeholder="Enter email" />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+            value={form.password}
+              name='password'
+              onChange={handleFieldChange}
+              type="password" placeholder="Password" />
+          </Form.Group>
+
+          
+          <Button
+            variant="primary"
+            type="submit"
+            style={{
+              width: "100%",
+              marginTop: "50px",
+              filter: "grayscale(100%)"
+            }}
+          >
+            Register!
+          </Button>
+          {msg && <p className='text-danger pt-2' >{msg}</p>}
+          <Form.Text className="text-muted mt-4">
+            <span> Do you have an account? </span>
+            <Link to="/login">Login!</Link>.
+          </Form.Text>
+        </Form>
+      </Col>
+    </Row>
+      )}
+      {msg==="Email Aready in Use!" && (<Row
       style={{ marginTop: "200px", marginBottom: "200px" }}
       className="p-4  d-flex justify-content-center "
     >
@@ -138,6 +205,7 @@ const handleLogin = e => {
     </Row>
       )}
   </Fragment>
+  
   );
 };
 
