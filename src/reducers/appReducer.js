@@ -56,7 +56,7 @@ const appReducer = (state, action) => {
     case SET_DRINK_COUNT:
       let newState;
       
-      if (action.operation == 'increase') {
+      if (action.operation === 'increase') {
         newState = {
           ...state,
           drinkCounts: {
@@ -64,7 +64,7 @@ const appReducer = (state, action) => {
             [action.drinkType]: state.drinkCounts[action.drinkType] + 1
           }
         }            
-      } else if (action.operation == 'decrease' && state.drinkCounts[action.drinkType] > 0) {
+      } else if (action.operation === 'decrease' && state.drinkCounts[action.drinkType] > 0) {
         newState = {
           ...state,
           drinkCounts: {
@@ -72,7 +72,7 @@ const appReducer = (state, action) => {
             [action.drinkType]: state.drinkCounts[action.drinkType] - 1
           }
         }     
-      } else if (action.operation == 'decrease' && state.drinkCounts[action.drinkType] === 0) {
+      } else if (action.operation === 'decrease' && state.drinkCounts[action.drinkType] === 0) {
         newState = {
           ...state,
           drinkCounts: {
