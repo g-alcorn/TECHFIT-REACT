@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Button,  ButtonToolbar, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ModalCard from '../FitnessPlan/ModalAddWorkout'
 const FitnessCard = props => {
   
   const [modalShow, setModalShow] = React.useState(false);
@@ -35,7 +36,9 @@ const FitnessCard = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
-        <iframe style={{height: "75vh", width: "75vh"}} src={props.video_url} allowFullScreen></iframe>
+        <div style={{overflow: "hidden", position: "relative", padding: "20px"}}> 
+          <iframe  className="fluid" style={{minHeight: "75vh", minWidth: "75vh"}} src={props.video_url} allowFullScreen></iframe>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -65,6 +68,7 @@ const FitnessCard = props => {
             level of difficulty: {props.difficulty} 
             </span>
             <ButtonToolbar>
+
             <Button variant="info" size="sm" onClick={() => setModalShow(true)}>
       Demo Video <i className="far fa-plus-square"></i>
       </Button>
@@ -75,14 +79,7 @@ const FitnessCard = props => {
             />
           </ButtonToolbar>
 
-            <Button
-              onClick={handleClickCard}
-              variant="info"
-              size="sm"
-              type="submit"
-              disabled={!active}>
-              Add <i className="far fa-plus-square"></i>
-            </Button>
+          < ModalCard handleWorkoutSend={props.handleWorkoutSend} resetWorkoutList={props.resetWorkoutList} handleClickCard={handleClickCard} />
           </div>
         </Col>
       </Row>

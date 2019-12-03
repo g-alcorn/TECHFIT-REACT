@@ -4,6 +4,7 @@ import { Container, Col, Row} from "react-bootstrap";
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
 import ProfileInfo from "../components/Profile/ProfileInfoSection/ProfileInfo";
+import SavedItems from "../components/Profile/SavedItemsSection/SavedItems"
 
 import Tracker from "../components/liquids/Tracker";
 import Incrementer from "../components/liquids/Incrementer";
@@ -13,8 +14,16 @@ import LiquidPie from "../components/liquids/LiquidPie";
 import useDrinksTracking from "../hooks/useDrinksTracking";
 
 
-export default function Profile({ dispatch, user, drinkCounts }) {
-  //Import function from custom hook
+const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
+  //comment
+
+  if (user) {
+    console.log('userid profile section copy', user.id)
+  }
+
+  function handleIncrease(event) {
+    console.log(event);
+  }
   const { handleCountSave } = useDrinksTracking();
 
   const handleCountChange = (event) => {
@@ -30,7 +39,7 @@ export default function Profile({ dispatch, user, drinkCounts }) {
       <Navbar user={user} />
       <ProfileInfo  user={user} />
 
-      <Row style={{ borderBottom: "1px solid black" }}>
+        <Row style={{ borderBottom: "1px solid black" }}>
         <Col lg={4} style={{ borderRight: "1px solid black" }}>
           <Tracker
             waterCounter={
@@ -81,10 +90,19 @@ export default function Profile({ dispatch, user, drinkCounts }) {
             )}
           </Col>
       </Row>
-     
-      <Footer />
-    </Container>
-  );
+        {
+          user &&
+          <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} userMealList={userMealList} />
+        }
+
+        <Footer />
+      </Container>
+    )
 }
+
+  
+
+export default ProfilePage;
+
 
 

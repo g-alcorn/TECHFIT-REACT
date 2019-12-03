@@ -1,17 +1,19 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
-import MealPage from './MealPage';
-import FitnessPage from './FitnessPage';
+import FitnessPage from './FitnessPage'
+import PageMealPlan from "./mealPlanPage";
+import useWorkoutList from "../handlers/user_workoutList";
+import useMealsList from "../handlers/user_mealList";
+
 import Login from "./Login";
 import Register from "./Register";
-import appReducer, { SET_USER, INIT_DRINK_COUNT } from "../reducers/appReducer";
+import appReducer, { SET_USER, SET_WORKOUT_LIST, SET_USERWORKOUT_LIST } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
-import PrivateRoute from './PrivateRoute';
-import axios from 'axios';
-
-const Routes = (props) => {
+import PrivateRoute from "./PrivateRoute";
+import axios from "axios";
+const Routes = props => {
   //state,dispatch
   const [state, dispatch] = useReducer(appReducer, {
     user: null,
@@ -23,19 +25,26 @@ const Routes = (props) => {
       sodaCount: 0,
       otherCount: 0
     },
+    userWorkoutList: [],
+    userMealList: [],
     login: null,
     userLoading: true
   });
 
+
   useProfileTokenUser(dispatch, state.login, state.userLoading);
-  
-  const axiosConfig = {
-    headers: {
-      Authorization:`Bearer ${localStorage.getItem('token')}`
-    }
-  };
-  
+  useWorkoutList(dispatch, state.login, state.user);
+  useMealsList(dispatch,state.login, state.user);
+
   useEffect(() => {
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*"
+      }
+    };
+
     axios
       .get("/api/users/user-info", axiosConfig)
       .then(res => {
@@ -47,8 +56,6 @@ const Routes = (props) => {
       .catch(e => {
         console.log("AXIOS ERROR: ", e);
       })
-
-    console.log('finished setting user')
   }, [state.login])
 
   useEffect(() => {
@@ -72,7 +79,20 @@ const Routes = (props) => {
       }
   }, [state.user])
 
-  // Render
+  //axios workouts
+  useEffect(() => {
+    axios
+    .get(`/api/workouts`)
+    .then(response => {
+      dispatch({ type: SET_WORKOUT_LIST, workoutList: response.data })
+    })
+    .catch(error => {
+      console.log(error)
+    })  
+   }, [])
+
+
+   //axious user_workokouts
   return (
     <BrowserRouter>
       <Switch>
@@ -90,20 +110,36 @@ const Routes = (props) => {
           path="/register" 
           component={() => 
             state.user ? (<Redirect to={"/"}/>) : (<Register />)} />
-  
+
         <PrivateRoute
           path="/meal-plan"
-          component={() => <MealPage dispatch={dispatch} login={state.login}  mealList={state.mealList} user={state.user} />}
+          component={() => (
+            <PageMealPlan
+              dispatch={dispatch}
+              login={state.login}
+              mealList={state.mealList}
+              user={state.user}
+            />
+          )}
+        />
+       <PrivateRoute
+          path="/fitness-page"
+          component={() => <FitnessPage dispatch={dispatch} login={state.login}  workoutList={state.workoutList} user={state.user} userWorkoutList={state.userWorkoutList} />}
         />
 
         <PrivateRoute
           path="/"
-          component={() => <Profile userLoading={state.userLoading} dispatch={dispatch} mealList={state.mealList} user={state.user} drinkCounts={state.drinkCounts}/>}
-        />
-
-        <PrivateRoute
-          path="/fitness-plan"
-          component={() => <FitnessPage userLoading={state.userLoading} dispatch={dispatch} mealList={state.mealList} user={state.user} />}
+          component={() => (
+            <Profile
+            userLoading={state.userLoading}
+            dispatch={dispatch}
+            user={state.user}
+            drinkCounts={state.drinkCounts}
+            userWorkoutList={state.userWorkoutList}
+            userMealList={state.userMealList}
+            mealList={state.mealList}
+          />
+          )}
         />
       </Switch>
     </BrowserRouter>
