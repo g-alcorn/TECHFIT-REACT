@@ -9,7 +9,7 @@ import useMealsList from "../handlers/user_mealList";
 
 import Login from "./Login";
 import Register from "./Register";
-import appReducer, { SET_USER, SET_WORKOUT_LIST, SET_USERWORKOUT_LIST, INIT_DRINK_COUNT } from "../reducers/appReducer";
+import appReducer, { SET_USER, SET_WORKOUT_LIST, INIT_DRINK_COUNT } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 import PrivateRoute from "./PrivateRoute";
 import axios from "axios";
@@ -31,10 +31,11 @@ const Routes = props => {
     userLoading: true
   });
 
+  console.log("USER STATE", state.user)
 
   useProfileTokenUser(dispatch, state.login, state.userLoading);
-  useWorkoutList(dispatch, state.login, state.user);
-  useMealsList(dispatch,state.login, state.user);
+  useWorkoutList(dispatch, state.login, state.user, state.userLoading);
+  useMealsList(dispatch,state.login, state.user, state.userLoading);
 
   const axiosConfig = {
     headers: {
