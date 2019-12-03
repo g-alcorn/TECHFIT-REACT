@@ -53,6 +53,7 @@ const FitnessPlanSection = ({user, dispatch, workoutList, userWorkoutList}) => {
         image_url: selectedWorkouts[0].image_url,
         video_url:selectedWorkouts[0].video_url,
       }
+      console.log("RES DATA USER WORKOT", res)
    
      dispatch({type: SET_USERWORKOUT_LIST, userWorkoutList: [userWorkoutList]});
      

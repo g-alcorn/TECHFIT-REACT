@@ -5,7 +5,7 @@ const useWorkoutList = (dispatch, login, user, userLoading) => {
   
   
   useEffect(() => {
-    if (login && !userLoading) {
+    if (user) {
       console.log("HHHHHHH", login)
       axios
         .get(`/api/user-workouts/${user.id}`)
@@ -21,7 +21,7 @@ const useWorkoutList = (dispatch, login, user, userLoading) => {
         });
   
      }
-    }, [login]);
+    }, [user]);
   
   
   }

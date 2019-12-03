@@ -3,10 +3,13 @@ import axios from 'axios'
 import { SET_USERMEALS_LIST } from '../reducers/appReducer';
 const useMealsList = (dispatch, login, user, userLoading) => {
   
-  console.log("FFFFFFFF", user)
+  
   
   useEffect(() => {
-    if (login && !userLoading) {
+    console.log("loading meallist")
+    // if (login && !userLoading) {
+      if (user) {
+      console.log("getting meallist")
       axios
       .get(`/api/user-meals/${user.id}`)
       .then(res => {
@@ -18,7 +21,7 @@ const useMealsList = (dispatch, login, user, userLoading) => {
       })
   
      }
-    }, [login]);
+    }, [user]);
   
   }
   export default useMealsList;
