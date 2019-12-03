@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import FitnessPage from './FitnessPage'
@@ -9,7 +9,7 @@ import useMealsList from "../handlers/user_mealList";
 
 import Login from "./Login";
 import Register from "./Register";
-import appReducer, { SET_USER, SET_WORKOUT_LIST, SET_USERWORKOUT_LIST } from "../reducers/appReducer";
+import appReducer, { SET_USER, SET_WORKOUT_LIST, SET_USERWORKOUT_LIST, INIT_DRINK_COUNT } from "../reducers/appReducer";
 import useProfileTokenUser from "../handlers/profile_token_user";
 import PrivateRoute from "./PrivateRoute";
 import axios from "axios";
@@ -36,15 +36,15 @@ const Routes = props => {
   useWorkoutList(dispatch, state.login, state.user);
   useMealsList(dispatch,state.login, state.user);
 
-  useEffect(() => {
-    const axiosConfig = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*"
-      }
-    };
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*"
+    }
+  };
 
+  useEffect(() => {
     axios
       .get("/api/users/user-info", axiosConfig)
       .then(res => {

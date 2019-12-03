@@ -14,16 +14,11 @@ import LiquidPie from "../components/liquids/LiquidPie";
 import useDrinksTracking from "../hooks/useDrinksTracking";
 
 
-const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
-  //comment
-
+const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCounts }) => {
   if (user) {
     console.log('userid profile section copy', user.id)
   }
 
-  function handleIncrease(event) {
-    console.log(event);
-  }
   const { handleCountSave } = useDrinksTracking();
 
   const handleCountChange = (event) => {
