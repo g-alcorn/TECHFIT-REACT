@@ -4,11 +4,12 @@ import axios from 'axios'
 import {  SET_DELETE_USERMEALS_LIST } from "../../../reducers/appReducer";
 
 
-const AccordianRecipe = (props, user, dispatch) => {
+const AccordianRecipe = (props, user) => {
+
+  console.log("dispatch", props.handleDeleteRecipe)
 
 
-
-  const handleDelete = (itemId) => {
+  const handleDeleteRecipe = (itemId) => {
     console.log("item", itemId)
   axios({
     method: "delete", 
@@ -16,9 +17,10 @@ const AccordianRecipe = (props, user, dispatch) => {
     data: {id: itemId} })
     .then (response => {
       console.log(response)
-    // props.dispatch({type: SET_DELETE_USERMEALS_LIST, id: itemId })
+    props.dispatch({type: SET_DELETE_USERMEALS_LIST, id: itemId })
     } )
   }
+
 
   const [modalShow, setModalShow] = React.useState(false);
   
@@ -73,7 +75,7 @@ const AccordianRecipe = (props, user, dispatch) => {
               <Col lg={6}>
               <Button 
               className="btn btn-danger"
-              onClick={()=> handleDelete(props.id)}>
+              onClick={()=> handleDeleteRecipe(props.id)}>
                 Delete
                 </Button>
               </Col>

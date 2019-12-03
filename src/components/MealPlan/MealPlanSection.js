@@ -3,30 +3,23 @@ import axios from "axios";
 import { Row, Col, Button, Form, Badge } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "../MealPlan/MealCard";
-import { SET_MEAL_LIST } from "../../reducers/appReducer";
+import { SET_MEAL_LIST, SET_USERMEALS_LIST} from "../../reducers/appReducer";
 require("dotenv").config();
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
-
 const rowStyle = { minHeight: "60vh", marginTop: "100px" };
-
 const MealPlanSection = ({ user, dispatch, mealList }) => {
   console.log(">>>>>>>>", user);
   if (user) {
     console.log("userid", user.id);
   }
   console.log("User from meal plan:", user);
-
   const [counter, setCounter] = useState(0);
-
   const handleMealCount = () => {
     setCounter(counter + 1);
   };
-
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [selectedMeals, setSelectedMeals] = useState([]);
-
-
   const resetMealList = () => {
     setSelectedMeals([])
     setCounter(0)
@@ -37,7 +30,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     handleMealCount();
     console.log("Selected Meals", selectedMeals);
   };
-
   //+++++++++++
   const handleRecipeSend = e => {
     console.log("hhh", selectedMeals);
@@ -51,7 +43,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       photoUrl: selectedMeals[0].photo_url,
       sourceUrl: selectedMeals[0].source_url
     };
-
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -61,21 +52,28 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     axios
       .post("/api/meals", postData, axiosConfig)
       .then(res => {
-
         setSelectedMeals([]);
         console.log("success", res);
+        const newUserMeal = {
+          id: user.id,
+          user_id: user.id,
+          recipe_title: selectedMeals[0].recipe_title,
+          recipe_description: selectedMeals[0].recipe_description,
+          prep_time: selectedMeals[0].prep_time,
+          servings: selectedMeals[0].servings,
+          photo_url: selectedMeals[0].photo_url,
+          source_url: selectedMeals[0].source_url
+        }
+        dispatch({type: SET_USERMEALS_LIST, userMealList: [newUserMeal]});
       })
       .catch(err => {
         console.log("AXIOS ERROR:", err);
       });
-
     setSelectedMeals([]);
     setCounter(0);
   };
-
   //+++++++++++++++++++++
   const [query, setQuery] = useState("");
-
   const getInfo = () => {
     console.log("getInfo");
     axios
@@ -89,10 +87,8 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
             )
           );
         }
-
         console.log("success");
         console.log(response);
-
         return Promise.all(promises);
       })
       .then(response => {
@@ -104,22 +100,18 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
         console.log(e);
       });
   };
-
   const handleSubmit = event => {
     event.preventDefault();
     getInfo();
     resetForm();
   };
-
   const resetForm = () => {
     setQuery("");
     // clearMealListDisplay()
   };
-
   // const clearMealListDisplay = () => {
   //   dispatch({ type: SET_MEAL_LIST, mealList: [] })
   // }
-
   return (
     <Row style={rowStyle} className=" p-4">
       <Col
@@ -136,7 +128,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
           <h1>Meal Plan Search</h1>
          
         </header>
-
         <Form style={{ minWidth: "600px" }} onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Type Ingredients*</Form.Label>
@@ -172,7 +163,6 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
       >
         <h1 className="text-center">Meals List Display</h1>
         <Badge variant="light">  {counter} meal(s) to add </Badge>
-
         <div>
           {mealList &&
             mealList.map((r, i) => (
@@ -195,5 +185,4 @@ const MealPlanSection = ({ user, dispatch, mealList }) => {
     </Row>
   );
 };
-
 export default MealPlanSection;

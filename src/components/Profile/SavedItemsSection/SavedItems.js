@@ -7,63 +7,47 @@ import AccordianWorkout from './AccordianWorkout';
 import AccordianRecipe from './AccordianRecipe'
 import axios from "axios"
 import { Link } from "react-router-dom"
-
-const SavedItems = (user, dispatch, userWorkoutList) => {
+const SavedItems = ({userId, user, dispatch, userWorkoutList, userMealList}) => {
   if (user) {
-    console.log('userid from saveditems',user.userId)
+    console.log('userid from saveditems',userId)
   }
   
-  const [workouts, setWorkouts] = useState([])
+  // const [workouts, setWorkouts] = useState([])
   const [meals, setMeals] = useState([])
-
-  useEffect(() => {
-    axios
-    .get(`/api/user-workouts/${user.userId}`)
-    .then(response => {
-      console.log(('-').repeat(50));
-      console.log('user workout');
+ 
+  // useEffect(() => {
+  //   axios
+  //   .get(`/api/user-workouts/${userId}`)
+  //   .then(response => {
+  //     console.log(('-').repeat(30));
       
-      setWorkouts(response.data)
-      console.log("user-workout", response.data)
-      dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
-
+  //     // setWorkouts(response.data)
+  //     console.log("user-workout", response.data)
+  //     dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
       
       
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-   }, [])
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //   })
+  //  }, [userId])
    
-   console.log("aaaa",userWorkoutList)
-
-   useEffect(() => {
-    axios
-    .get(`/api/user-meals/${user.userId}`)
-    .then(res => {
-      setMeals(res.data)
-      console.log("user-meal", res.data)
-      dispatch({ type: SET_USERMEALS_LIST, userMealsList: res.data })
-
+  
+  //  useEffect(() => {
+  //   axios
+  //   .get(`/api/user-meals/${userId}`)
+  //   .then(res => {
+  //     setMeals(res.data)
+  //     console.log(('-').repeat(30));
+  //     console.log("user-meal", res.data)
+  //     // dispatch({ type: SET_USERMEALS_LIST, userMealsList: res.data })
       
       
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-   }, [])
-
-
-
-
-
-
-
-
-
-
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //   })
+  //  }, [userId])
   return (
     <Row>
         <Col lg={5} className="p-5">
@@ -71,7 +55,7 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
   
       
       <div>
-      {meals.map((r, i) => (
+      {userMealList.map((r, i) => (
             <AccordianRecipe
               key={i}
               id={r.id}
@@ -93,16 +77,14 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
         </Button>
         </Link>
     </Col>
-
     <Col lg={2}>
     </Col>
-
     <Col lg={5} className="p-5">
     <h2 className="text-center p-3">Saved Workouts</h2>      
   
       
       <div>
-      {workouts.map((r, i) => (
+      {userWorkoutList.map((r, i) => (
             <AccordianWorkout
               key={i}
               id={r.id}
@@ -124,5 +106,4 @@ const SavedItems = (user, dispatch, userWorkoutList) => {
   </Row>
   )
 }
-
 export default SavedItems;
