@@ -52,15 +52,17 @@ const LoginForm = (props) => {
         if (res.data.token) {
         console.log("token received");
         //setLogin(true);
+        localStorage.setItem("token", res.data.token);
+        resetForm();
          props.dispatch({
            type: SET_LOGIN,
            login:true
            
           })
-          localStorage.setItem("token", res.data.token);
+          
           // getUserInfo();
           
-          resetForm();
+          
         }
         // console.log("response from server>>>", res.data);
       })

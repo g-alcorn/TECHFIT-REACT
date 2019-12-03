@@ -27,7 +27,7 @@ const Routes = props => {
     },
     userWorkoutList: [],
     userMealList: [],
-    login: null,
+    login: localStorage.getItem('token') ? true: false,
     userLoading: true
   });
 
