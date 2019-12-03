@@ -11,9 +11,9 @@ import Incrementer from "../components/liquids/Incrementer";
 import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
 
-const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
+const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList }) => {
   //comment
-  console.log(">>>>>>>>", user)
+
   if (user) {
     console.log('userid profile section copy', user.id)
   }
@@ -85,7 +85,7 @@ const ProfilePage = ({ user, dispatch, userWorkoutList }) => {
       </Row>
         {
           user &&
-          <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} />
+          <SavedItems userId={user.id} dispatch={dispatch} user={user} userWorkoutList={userWorkoutList} userMealList={userMealList} />
         }
 
         <Footer />

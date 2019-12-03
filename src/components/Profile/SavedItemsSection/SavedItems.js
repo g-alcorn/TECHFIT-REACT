@@ -1,64 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { Row, Col, Button, Accordion, Card } from "react-bootstrap";
-import RecipeCardInfo from './RecipeCardInfo'
-import WorkoutCardInfo from './WorkoutCardInfo'
-import { SET_USERWORKOUT_LIST, SET_USERMEALS_LIST } from "../../../reducers/appReducer";
+
 import AccordianWorkout from './AccordianWorkout';
 import AccordianRecipe from './AccordianRecipe'
-import axios from "axios"
+
 import { Link } from "react-router-dom"
+const SavedItems = ({dispatch, userWorkoutList, userMealList}) => {
 
-const SavedItems = (user, dispatch, userWorkoutList, userId) => {
-  if (user) {
-    console.log('userid from saveditems',user.userId)
-  }
-  
-  const [workouts, setWorkouts] = useState([])
-  const [meals, setMeals] = useState([])
-
-  useEffect(() => {
-    axios
-    .get(`/api/user-workouts/${user.userId}`)
-    .then(response => {
-      setWorkouts(response.data)
-      console.log("user-workout", response.data)
-      dispatch({ type: SET_USERWORKOUT_LIST, userWorkoutList: response.data })
-
-      
-      
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-   }, [])
-   
-   console.log("aaaa",userWorkoutList)
-
-   useEffect(() => {
-    axios
-    .get(`/api/user-meals/${user.userId}`)
-    .then(res => {
-      setMeals(res.data)
-      console.log("user-meal", res.data)
-      dispatch({ type: SET_USERMEALS_LIST, userMealsList: res.data })
-
-      
-      
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-   }, [])
-
-
-
-
-
-
-
-
+ 
   return (
     <Row>
         <Col lg={5} className="p-5">
@@ -66,7 +15,7 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
   
       
       <div>
-      {meals.map((r, i) => (
+      {userMealList.map((r, i) => (
             <AccordianRecipe
               key={i}
               id={r.id}
@@ -76,6 +25,8 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
               prep_time={r.prep_time}
               source_url={r.source_url}
               servings={r.servings}
+              dispatch={dispatch}
+              
               
       />
       ))}
@@ -86,16 +37,14 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
         </Button>
         </Link>
     </Col>
-
     <Col lg={2}>
     </Col>
-
     <Col lg={5} className="p-5">
     <h2 className="text-center p-3">Saved Workouts</h2>      
   
       
       <div>
-      {workouts.map((r, i) => (
+      {userWorkoutList.map((r, i) => (
             <AccordianWorkout
               key={i}
               id={r.id}
@@ -104,6 +53,7 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
               workout_description={r.workout_description}
               difficulty={r.difficulty}
               video_url={r.video_url}
+              dispatch={dispatch}
               
       />
       ))}
@@ -117,5 +67,4 @@ const SavedItems = (user, dispatch, userWorkoutList, userId) => {
   </Row>
   )
 }
-
 export default SavedItems;

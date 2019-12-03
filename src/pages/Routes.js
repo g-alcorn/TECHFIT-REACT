@@ -5,6 +5,8 @@ import Home from "./Home";
 import Profile from "./Profile";
 import FitnessPage from './FitnessPage'
 import PageMealPlan from "./mealPlanPage";
+import useWorkoutList from "../handlers/user_workoutList";
+import useMealsList from "../handlers/user_mealList";
 
 import Login from "./Login";
 import Register from "./Register";
@@ -19,16 +21,18 @@ const Routes = props => {
     mealList: [],
     workoutList: [],
     userWorkoutList: [],
-    userMealsList: [],
+    userMealList: [],
     login: null,
     userLoading: true
   });
 
   //comment
   useProfileTokenUser(dispatch, state.login, state.userLoading);
+  useWorkoutList(dispatch, state.login, state.user);
+  useMealsList(dispatch,state.login, state.user);
 
   useEffect(() => {
-    console.log("getting user info");
+   
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -91,20 +95,22 @@ const Routes = props => {
             />
           )}
         />
-        <PrivateRoute
+       <PrivateRoute
           path="/fitness-page"
-          component={() => <FitnessPage dispatch={dispatch} login={state.login}  workoutList={state.workoutList} user={state.user} />}
+          component={() => <FitnessPage dispatch={dispatch} login={state.login}  workoutList={state.workoutList} user={state.user} userWorkoutList={state.userWorkoutList} />}
         />
 
         <PrivateRoute
           path="/"
           component={() => (
             <Profile
-              userLoading={state.userLoading}
-              dispatch={dispatch}
-              mealList={state.mealList}
-              user={state.user}
-            />
+            userLoading={state.userLoading}
+            dispatch={dispatch}
+            mealList={state.mealList}
+            user={state.user}
+            userWorkoutList={state.userWorkoutList}
+            userMealList={state.userMealList}
+          />
           )}
         />
       </Switch>

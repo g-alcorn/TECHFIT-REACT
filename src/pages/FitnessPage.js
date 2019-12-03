@@ -11,12 +11,7 @@ import FitnessPlanSection from "../components/FitnessPlan/FitnessPlanSection"
 
 export default function Profile({ dispatch, user, workoutList}) {
  
-  console.log(">>>>>>>>", user)
-  if (user) {
-    console.log('userid',user.id)
-  }
 
-  
     
      
  

@@ -1,8 +1,24 @@
 import React, { useState} from 'react'
 import { Row, Col, Button, Accordion, Card, Modal, ButtonToolbar } from "react-bootstrap";
+import {  SET_DELETE_WORKOUTS_LIST } from "../../../reducers/appReducer";
+import axios from 'axios'
 
 
-const AccordianWorkout = props => {
+const AccordianWorkout = (props, user) => {
+
+  console.log("AAAAAAAA", user)
+
+  const handleDeleteWorkout = (itemId) => {
+    console.log("item", itemId)
+  axios({
+    method: "delete", 
+    url: `/api/user-workouts/${user.userId}`,
+    data: {id: itemId} })
+    .then (response => {
+      console.log(response)
+    props.dispatch({type: SET_DELETE_WORKOUTS_LIST, id: itemId })
+    } )
+  }
 
   const [modalShow, setModalShow] = React.useState(false);
   
@@ -48,9 +64,22 @@ const AccordianWorkout = props => {
     <Accordion >
         <Card>
           <Card.Header>
+          <Row>
+              <Col lg={6}>
             <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{ color: "black" }}>
               {props.name}
-          </Accordion.Toggle>
+              </Accordion.Toggle>
+              </Col>
+              <Col lg={6}>
+              <Button 
+              className="btn btn-danger"
+              onClick={()=> handleDeleteWorkout(props.id)}>
+                Delete
+                </Button>
+              </Col>
+              
+          
+          </Row>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
