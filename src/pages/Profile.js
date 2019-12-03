@@ -29,13 +29,21 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCount
     handleCountSave(dispatch, user.id, drinkType, operation, drinkCounts);
   }
 
+  const countsExist = (drinkCounts) => {
+    for (let count in drinkCounts) {
+      if (drinkCounts[count] !== 0) {
+        return true;
+      }
+    }
+  }
+
   return (
     <Container className="profile--page" fluid={true}>
       <Navbar user={user} />
       <ProfileInfo  user={user} />
 
         <Row style={{ borderBottom: "1px solid black" }}>
-        <Col lg={4} style={{ borderRight: "1px solid black" }}>
+        <Col lg={4} style={{ borderRight: "1px solid black", marginTop: "15px" }}>
           <Tracker
             waterCounter={
             <Incrementer 
@@ -72,16 +80,17 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCount
               {" "}
               Liquid Consumption Chart 
             </h3>
-            {user && (
+            {countsExist(drinkCounts) && (
               <Row>
                 <Col>
-                  <LiquidBar user={user}/>
-                </Col>
-                
-                <Col>
-                  <LiquidPie user={user}/>
+                  <LiquidPie data={drinkCounts}/>
                 </Col>
               </Row>              
+            )}
+            {!countsExist(drinkCounts) && (
+              <h6 className="no-drinks-counted" style={{ marginTop: "15px" }}>
+                {"Use the drinks tracker to see your consumption!"}
+              </h6>
             )}
           </Col>
       </Row>
