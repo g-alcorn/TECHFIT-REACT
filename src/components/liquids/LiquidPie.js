@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { VictoryPie } from 'victory';
-
+import { VictoryPie, VictoryContainer } from 'victory';
 
 export default function LiquidPie(props) {
   console.log(props.data);
@@ -24,12 +23,12 @@ export default function LiquidPie(props) {
     <Fragment>
       {/* PIE CHART */}
       <VictoryPie 
-        height={200}
-        width={200}
         animate={{
           onLoad: {duration: 1500}
         }}
         labels={['water', 'coffee', 'soda', 'other']}
+        labelRadius={90}
+        containerComponent={<VictoryContainer maxWidth={'60%'} />}
         style={{
           data: { 
             fillOpacity: 0.7, 
@@ -43,6 +42,7 @@ export default function LiquidPie(props) {
             ,
           labels: { fontSize: 1 }
         }}}
+        height={250}
         data={generatePieData(props.data)}
       />
     </Fragment>
