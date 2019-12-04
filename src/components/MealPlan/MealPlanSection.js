@@ -7,7 +7,7 @@ import { SET_MEAL_LIST, SET_USERMEALS_LIST} from "../../reducers/appReducer";
 require("dotenv").config();
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = `https://api.spoonacular.com/recipes/findByIngredients`;
-const rowStyle = { minHeight: "60vh", marginTop: "100px" };
+const rowStyle = { minHeight: "60vh", marginTop: "50px" };
 const MealPlanSection = ({ user, dispatch, mealList }) => {
   console.log(">>>>>>>>", user);
   if (user) {

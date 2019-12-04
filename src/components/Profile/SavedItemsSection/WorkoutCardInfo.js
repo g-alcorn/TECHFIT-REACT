@@ -40,10 +40,10 @@ const WorkoutCardInfo = props => {
   
   return (
          <Fragment>
-      <Row className="border pt-4 pb-4 rounded">
+      <Row className="">
         <Col lg={6}>
           <img
-            style={{ height: "200px" }}
+            style={{ height: "200px", border: "none" }}
             className="img-fluid img-thumbnail"
             src={props.image_url}
             alt="fitness"

@@ -34,6 +34,7 @@ const MealCard = props => {
             className="img-fluid img-thumbnail"
             src={props.image}
             alt="food"
+            style={{border: "none"}}
           />
         </Col>
         <Col lg={9} >

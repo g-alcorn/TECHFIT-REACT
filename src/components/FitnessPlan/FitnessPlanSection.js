@@ -5,7 +5,7 @@ import FitnessCard from '../FitnessPlan/FitnessCard'
 import "bootstrap/dist/css/bootstrap.min.css";
 import {SET_USERWORKOUT_LIST} from "../../reducers/appReducer";
 const FitnessPlanSection = ({user, dispatch, workoutList, userWorkoutList}) => {
-  const rowStyle = { minHeight: "300px", margin: "200px 0px" };
+  const rowStyle = { minHeight: "300px", margin: "50px 0px" };
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   // const [loadingWorkouts, setLoadingWorkouts] = useState(false);
   const [counter, setCounter] = useState(0)

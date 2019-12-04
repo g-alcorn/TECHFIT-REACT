@@ -39,10 +39,10 @@ const RecipeCardInfo = props => {
 
   
   return (
-      <Row className="border pt-4 pb-4 rounded">
+      <Row className="pt-4 pb-4 rounded">
         <Col lg={6}>
           <img
-            style={{ height: "200px" }}
+            style={{ height: "200px", border: "none" }}
             className="img-fluid img-thumbnail"
             src={props.image}
             alt="fitness"

@@ -66,13 +66,15 @@ const AccordianWorkout = (props, user) => {
           <Card.Header>
           <Row>
               <Col lg={6}>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{ color: "black" }}>
+            <Accordion.Toggle className="font-weight-bold" as={Button} size="lg" variant="link" eventKey="0" style={{ color: "black" }}>
               {props.name}
               </Accordion.Toggle>
               </Col>
-              <Col lg={6}>
+              <Col lg={6} className="text-right">
               <Button 
-              className="btn btn-danger"
+              size="sm"
+              variant="secondary"
+              style={{marginTop: "10px"}}
               onClick={()=> handleDeleteWorkout(props.id)}>
                 Delete
                 </Button>
@@ -84,10 +86,10 @@ const AccordianWorkout = (props, user) => {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
 
-            <Row className="border pt-4 pb-4 rounded">
+            <Row className="pt-4 pb-4 rounded">
         <Col lg={6}>
           <img
-            style={{ height: "200px" }}
+            style={{ height: "200px", border: "none" }}
             className="img-fluid img-thumbnail"
             src={props.image_url}
             alt="fitness"

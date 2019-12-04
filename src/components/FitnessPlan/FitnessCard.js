@@ -49,10 +49,10 @@ const FitnessCard = props => {
 
 
   return (
-      <Row className="border pt-4 pb-4 rounded" style={{marginTop: "10px", width: "800px", display: "flex", justifyContent: "space-evenly"}}>
+      <Row className="border pt-4 pb-4 rounded" style={{marginTop: "10px", width: "800px", display: "flex", justifyContent: "space-evenly" }}>
         <Col lg={6}>
           <img
-            style={{ height: "200px" }}
+            style={{ height: "200px", border: "none" }}
             className="img-fluid img-thumbnail"
             src={props.image_url}
             alt="fitness"

@@ -13,19 +13,19 @@ const Footer = () => {
         </Col>
         <Col className="text-center mt-3" lg="4">
           <h5 style={{ fontSize: "40px" }}>Call Us</h5>
-          <p style={{ fontSize: "20px" }}>+1 (234) 567 89 00</p>
-          <p style={{ fontSize: "20px" }}>+1 (234) 567 89 03</p>
-          <p style={{ fontSize: "20px" }}>+1 (234) 567 55 00</p>
+          <p style={{ fontSize: "20px" }}>+1 (514) 348-6377</p>
+          <p style={{ fontSize: "20px" }}>+1 (514) 348-3663</p>
+          <p style={{ fontSize: "20px" }}>+1 (514) 348-8324</p>
         </Col>
         <Col className="text-center mt-3" lg="4">
           <h5 style={{ fontSize: "40px" }}>Write Us</h5>
-          <p style={{ fontSize: "20px" }}>help@email.com</p>
-          <p style={{ fontSize: "20px" }}>mycompany@email.com</p>
+          <p style={{ fontSize: "20px" }}>support@techfit.com</p>
+          <p style={{ fontSize: "20px" }}>getfit@techfit.com</p>
         </Col>
       </Row>
       <Row className="bg-dark pt-3 pb-3">
         <Col lg="12">
-          <span className="text-white">Created with by Techfit Team </span>
+          <span className="text-white">Created with love by the Techfit Team </span>
         </Col>
       </Row>
     </Fragment>
