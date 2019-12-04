@@ -8,9 +8,7 @@ import SavedItems from "../components/Profile/SavedItemsSection/SavedItems"
 
 import Tracker from "../components/liquids/Tracker";
 import Incrementer from "../components/liquids/Incrementer";
-import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
-
 import useDrinksTracking from "../hooks/useDrinksTracking";
 
 
@@ -81,11 +79,7 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCount
               Liquid Consumption Chart 
             </h3>
             {countsExist(drinkCounts) && (
-              <Row>
-                <Col>
-                  <LiquidPie data={drinkCounts}/>
-                </Col>
-              </Row>              
+              <LiquidPie data={drinkCounts}/>
             )}
             {!countsExist(drinkCounts) && (
               <h6 className="no-drinks-counted" style={{ marginTop: "15px" }}>
