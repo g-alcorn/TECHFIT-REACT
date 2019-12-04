@@ -43,18 +43,27 @@ export default function LiquidBar({ user }) {
       switch (j) {
         case 0:
           drinkType = 'waterCount';
+          break;
         case 1:
           drinkType = 'coffeeCount';
+          break;
         case 2:
           drinkType = 'sodaCount';
+          break;
         case 3:
           drinkType = 'otherCount';
+          break;
         default:
           drinkType = 'otherCount';
+          break;
       }
 
       for (let i = 0; i < serverData.rows.length; i++) {
-        barData.push(serverData.rows[i][drinkType]);
+        for (let countType in serverData.rows[i]) {
+          console.log(countType);
+          barData.push(serverData.rows[i][drinkType]);
+        }
+        
       }
 
       generateBar(drinkType, barData);
@@ -76,7 +85,6 @@ export default function LiquidBar({ user }) {
 
       default:
         return 'grey'
-
     }
   }
 

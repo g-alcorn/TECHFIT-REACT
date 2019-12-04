@@ -8,9 +8,7 @@ import SavedItems from "../components/Profile/SavedItemsSection/SavedItems"
 
 import Tracker from "../components/liquids/Tracker";
 import Incrementer from "../components/liquids/Incrementer";
-import LiquidBar from "../components/liquids/LiquidBar";
 import LiquidPie from "../components/liquids/LiquidPie";
-
 import useDrinksTracking from "../hooks/useDrinksTracking";
 
 
@@ -43,37 +41,40 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCount
       <ProfileInfo  user={user} />
 
         <Row style={{ borderBottom: "1px solid black" }}>
-        <Col lg={4} style={{ borderRight: "1px solid black", marginTop: "15px" }}>
-          <Tracker
-            waterCounter={
-            <Incrementer 
-              name={'water'} 
-              count={drinkCounts.waterCount}
-              handleIncrease={handleCountChange}
-              handleDecrease={handleCountChange}
-            />}
-            coffeeCounter={
-            <Incrementer 
-              name={'coffee'} 
-              count={drinkCounts.coffeeCount}
-              handleIncrease={handleCountChange}
-              handleDecrease={handleCountChange}
-            />}
-            sodaCounter={
-            <Incrementer 
-              name={'soda'} 
-              count={drinkCounts.sodaCount}
-              handleIncrease={handleCountChange}
-              handleDecrease={handleCountChange}
-            />}
-            otherCounter={
-            <Incrementer 
-              name={'other'} 
-              count={drinkCounts.otherCount}
-              handleIncrease={handleCountChange}
-              handleDecrease={handleCountChange}
-            />}
-            />
+        <Col className={'text-center'} lg={4} style={{ borderRight: "1px solid black" }}>
+          <Row className={'text-center'} style={{marginTop: '15px', justifyContent: 'center'}}><h3>Liquid Consumption Tracker</h3></Row>
+          <Row className={'liquid--tracker'}>
+            <Tracker
+              waterCounter={
+              <Incrementer 
+                name={'water'} 
+                count={drinkCounts.waterCount}
+                handleIncrease={handleCountChange}
+                handleDecrease={handleCountChange}
+              />}
+              coffeeCounter={
+              <Incrementer 
+                name={'coffee'} 
+                count={drinkCounts.coffeeCount}
+                handleIncrease={handleCountChange}
+                handleDecrease={handleCountChange}
+              />}
+              sodaCounter={
+              <Incrementer 
+                name={'soda'} 
+                count={drinkCounts.sodaCount}
+                handleIncrease={handleCountChange}
+                handleDecrease={handleCountChange}
+              />}
+              otherCounter={
+              <Incrementer 
+                name={'other'} 
+                count={drinkCounts.otherCount}
+                handleIncrease={handleCountChange}
+                handleDecrease={handleCountChange}
+              />}
+              />
+            </Row>
           </Col>
           <Col lg={8}>
             <h3 className="text-center" style={{ marginTop: "15px" }}>
@@ -81,14 +82,10 @@ const ProfilePage = ({ user, dispatch, userWorkoutList, userMealList, drinkCount
               Liquid Consumption Chart 
             </h3>
             {countsExist(drinkCounts) && (
-              <Row>
-                <Col>
-                  <LiquidPie data={drinkCounts}/>
-                </Col>
-              </Row>              
+              <LiquidPie data={drinkCounts}/>
             )}
             {!countsExist(drinkCounts) && (
-              <h6 className="no-drinks-counted" style={{ marginTop: "15px" }}>
+              <h6 className="no-drinks-counted text-center" style={{ marginTop: "15px" }}>
                 {"Use the drinks tracker to see your consumption!"}
               </h6>
             )}
