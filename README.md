@@ -1,17 +1,17 @@
-##TechFit - Lighthouse Labs Final Project
+## TechFit - Lighthouse Labs Final Project
 
-###Introduction
+### Introduction
 
-###User Stories
+### User Stories
 
-###Screenshots
+### Screenshots
 
-###Tech Stack
+### Tech Stack
 
-###How to install and run
+### How to install and run
 
-#####Dependencies
+##### Dependencies
 
 
-###Acknowledgements
+### Acknowledgements
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
